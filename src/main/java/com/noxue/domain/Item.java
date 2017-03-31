@@ -10,13 +10,28 @@ import java.util.Date;
  */
 @Entity
 public class Item {
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", typeId=" + typeId +
+                ", orderId=" + orderId +
+                ", urlName='" + urlName + '\'' +
+                ", title='" + title + '\'' +
+                ", contentText='" + contentText + '\'' +
+                ", contentHtml='" + contentHtml + '\'' +
+                ", createdAt=" + createdAt +
+                ", prevId=" + prevId +
+                ", nextId=" + nextId +
+                '}';
+    }
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
-    private Integer typeId;
+    private Long typeId;
 
     @Column(nullable = false)
     private Integer orderId;
@@ -48,11 +63,11 @@ public class Item {
         this.id = id;
     }
 
-    public Integer getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
+    public void setTypeId(Long typeId) {
         this.typeId = typeId;
     }
 

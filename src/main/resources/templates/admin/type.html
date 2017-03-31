@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>添加分类</title>
+</head>
+<body>
+<form method="post">
+    <div class="name">
+        <label for="name">标题</label>
+        <input type="text" name="name" id="name" />
+    </div>
+
+    <div class="urlname">
+        <label for="urlname">链接别名</label>
+        <input type="text" name="urlname" id="urlname" />
+    </div>
+    <div class="pid">
+        <label for="type">上级分类</label>
+        <select id="type" name="type">
+            <option value="0">选择分类</option>
+            <option value="1">分类1</option>
+            <option value="2">分类2</option>
+        </select>
+    </div>
+    <div class="seokeywords">
+        <label for="seokeywords">SEO关键词</label>
+        <input type="text" name="seokeywords" id="seokeywords" />
+    </div>
+
+    <div class="seodescription">
+        <label for="seodescription">SEO描述</label>
+        <input type="text" name="seodescription" id="seodescription" />
+    </div>
+
+    <div class="submit" id="submit">
+        <button>添加分类</button>
+    </div>
+</form>
+</body>
+</html>

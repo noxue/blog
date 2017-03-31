@@ -1,7 +1,11 @@
 package com.noxue.service;
 
+import com.noxue.domain.Item;
 import com.noxue.domain.Type;
+import org.hibernate.validator.internal.xml.GetterType;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -18,20 +22,29 @@ public interface ItemService {
 
     public Type GetType(Long typeId);
 
-    public Type GetTypeByName(String name);
 
     /**
      * 获取指定分类的所有下级分类
      * @param parrentTypeId
      * @return
      */
-    public List<Type> GetTypes(Long parrentTypeId);
+    public List<Type> GetTypes(Pageable pageable,Long parrentTypeId);
 
     /**
      * ge
      * @param parrentTypeId
      * @return
      */
-    public Page<Type> GetTypesWithPage(Long parrentTypeId);
+    public Page<Type> GetTypesWithPage(Pageable pageable,Long parrentTypeId);
 
+    ///=======================================================================================
+    public Long SaveItem(Item item);
+
+    public Item GetItem(Long itemId);
+
+    public Item GetItem(String urlName);
+
+    public List<Item> GetItems(Long typeId);
+
+    public Page<Item> getItems(PageRequest pageRequest, Long typeId);
 }
