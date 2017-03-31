@@ -1,36 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <title>添加分类</title>
 </head>
 <body>
-<form method="post">
+<form method="post" th:action="@{/admin/type}" th:object="${typeModel}">
+
+    <input th:value="${type?.id}" type="hidden" name="id" id="id" />
     <div class="name">
         <label for="name">标题</label>
-        <input type="text" name="name" id="name" />
+        <input th:value="${type?.name}" type="text" name="name" id="name" />
+        <p th:if="${typeModel!=null and #fields.hasErrors('name')}" th:errors="*{name}">errors</p>
     </div>
 
-    <div class="urlname">
-        <label for="urlname">链接别名</label>
-        <input type="text" name="urlname" id="urlname" />
+    <div class="urlName">
+        <label for="urlName">链接别名</label>
+        <input th:value="${type?.urlName}"  type="text" name="urlName" id="urlName" />
+        <p th:if="${typeModel!=null and #fields.hasErrors('urlName')}" th:errors="*{urlName}">errors</p>
     </div>
+
+    <div class="orderId">
+        <label for="orderId">排序编号</label>
+        <input th:value="${type?.orderId}"  type="text" name="orderId" id="orderId" />
+        <p th:if="${typeModel!=null and #fields.hasErrors('orderId')}" th:errors="*{orderId}">errors</p>
+    </div>
+
     <div class="pid">
-        <label for="type">上级分类</label>
-        <select id="type" name="type">
+        <label for="pid">上级分类</label>
+        <select id="pid" name="pid">
             <option value="0">选择分类</option>
-            <option value="1">分类1</option>
-            <option value="2">分类2</option>
+            <option th:selected="${type?.pid==1}" value="1">分类1</option>
+            <option th:selected="${type?.pid==2}" value="2">分类2</option>
         </select>
+        <p th:if="${typeModel!=null and #fields.hasErrors('pid')}" th:errors="*{pid}">errors</p>
     </div>
-    <div class="seokeywords">
-        <label for="seokeywords">SEO关键词</label>
-        <input type="text" name="seokeywords" id="seokeywords" />
+    <div class="showItem">
+
+        显示状态
+
+        <input th:checked="${type?.showItem==false}" type="radio" value="0" name="showItem" id="showItem1" />
+        <label for="showItem1">显示下级分类</label>
+
+
+        <input th:checked="${type?.showItem}" type="radio" value="1" name="showItem" id="showItem2" />
+        <label for="showItem2">显示文章</label>
+
+        <p th:if="${typeModel!=null and #fields.hasErrors('showItem')}" th:errors="*{showItem}">errors</p>
+
     </div>
 
-    <div class="seodescription">
-        <label for="seodescription">SEO描述</label>
-        <input type="text" name="seodescription" id="seodescription" />
+    <div class="seoTitle">
+        <label for="seoTitle">SEO标题</label>
+        <input th:value="${type?.seoTitle}" type="text" name="seoTitle" id="seoTitle" />
+        <p th:if="${typeModel!=null and #fields.hasErrors('seoTitle')}" th:errors="*{seoTitle}">errors</p>
+    </div>
+
+    <div class="seoKeywords">
+        <label for="seoKeywords">SEO关键词</label>
+        <input th:value="${type?.seoKeywords}" type="text" name="seoKeywords" id="seoKeywords" />
+        <p th:if="${typeModel!=null and #fields.hasErrors('seoKeywords')}" th:errors="*{seoKeywords}">errors</p>
+    </div>
+
+    <div class="seoDescription">
+        <label for="seoDescription">SEO描述</label>
+        <input th:value="${type?.seoDescription}"   name="seoDescription" id="seoDescription" />
+        <p th:if="${typeModel!=null and #fields.hasErrors('seoDescription')}" th:errors="*{seoDescription}">errors</p>
     </div>
 
     <div class="submit" id="submit">

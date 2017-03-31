@@ -4,13 +4,17 @@ import com.noxue.dao.ItemDao;
 import com.noxue.dao.TypeDao;
 import com.noxue.domain.Item;
 import com.noxue.domain.Type;
+import com.noxue.model.TypeModel;
+import com.noxue.model.TypeSub;
 import com.noxue.service.ItemService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,6 +38,27 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Type GetType(Long typeId) {
         return typeDao.findOne(typeId);
+    }
+
+    @Override
+    public Type GetType(String urlName) {
+        return typeDao.findByUrlName(urlName);
+    }
+
+    @Override
+    public List<Type> GetTypes() {
+
+//        TypeSub typeSub = new TypeSub();
+//
+//        for(Type type:typeDao.findAll()) {
+//            TypeModel typeModel = new TypeModel();
+//            BeanUtils.copyProperties(type, typeModel);
+//            typeSub.getTypes().add(typeModel);
+//        }
+//
+//        return types;
+
+        return null;
     }
 
     @Override

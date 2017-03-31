@@ -21,7 +21,9 @@ public interface ItemService {
     public Long SaveType(Type type);
 
     public Type GetType(Long typeId);
+    public Type GetType(String urlName);
 
+    public List<Type> GetTypes();
 
     /**
      * 获取指定分类的所有下级分类

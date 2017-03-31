@@ -33,7 +33,6 @@ public class Item {
     @Column(nullable = false)
     private Long typeId;
 
-    @Column(nullable = false)
     private Integer orderId;
 
     @Column(unique = true, length = 100)

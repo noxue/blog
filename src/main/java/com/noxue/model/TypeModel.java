@@ -1,65 +1,45 @@
-package com.noxue.domain;
+package com.noxue.model;
 
+import com.noxue.domain.Type;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.data.annotation.CreatedDate;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * Created by noxue on 2017/3/29.
+ * Created by noxue on 2017/3/31.
  */
-@Entity
-public class Type implements Serializable {
+public class TypeModel{
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private Long pid=0L;
+    private Long pid;
 
+    private Integer orderId;
 
-    private Integer orderId=0;
-
-    @Column(nullable = false, length = 100)
+    @Size(min=3,max=255)
+    @NotNull
+    @NotEmpty
     private String name;
 
-    @Column(unique = true, length = 100)
+    @NotEmpty
+    @NotNull
+    @Size(min=3, max=100)
     private String urlName;
 
-    private String seoTitle="";
+    @Size(max=255)
+    private String seoTitle;
 
-    private String seoKeywords="";
+    @Size(max=255)
+    private String seoKeywords;
 
-    private String seoDescription="";
+    @Size(max=255)
+    private String seoDescription;
 
-    private Short status=0;
+    private Short status;
 
-    @CreatedDate
-    private Date createdAt;
-
-
-    @ColumnDefault("0")
     private Boolean showItem;
-
-
-    public String getUrlName() {
-        return urlName;
-    }
-
-    public void setUrlName(String urlName) {
-        this.urlName = urlName;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public Long getId() {
         return id;
@@ -93,6 +73,13 @@ public class Type implements Serializable {
         this.name = name;
     }
 
+    public String getUrlName() {
+        return urlName;
+    }
+
+    public void setUrlName(String urlName) {
+        this.urlName = urlName;
+    }
 
     public String getSeoTitle() {
         return seoTitle;
@@ -124,14 +111,6 @@ public class Type implements Serializable {
 
     public void setStatus(Short status) {
         this.status = status;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Boolean getShowItem() {
