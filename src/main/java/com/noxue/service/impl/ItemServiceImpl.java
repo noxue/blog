@@ -47,16 +47,8 @@ public class ItemServiceImpl implements ItemService {
         return typeDao.findByUrlName(urlName);
     }
 
-    @Override
-    public List<Type> GetTypes() {
 
-        return null;
-    }
 
-    @Override
-    public List<Type> GetTypes(Pageable pageable, Long parrentTypeId) {
-        return null;
-    }
 
     @Override
     public List<TypeSub> GetAllTypes() {
@@ -81,12 +73,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Page<Type> GetTypesWithPage(Pageable pageable, Long parrentTypeId) {
-
-        return null;
-    }
-
-    @Override
     public Long SaveItem(Item item) {
         return itemDao.save(item).getId();
     }
@@ -101,10 +87,6 @@ public class ItemServiceImpl implements ItemService {
         return itemDao.getByUrlName(urlName);
     }
 
-    @Override
-    public List<Item> GetItems(Long typeId) {
-        return null;
-    }
 
     @Override
     public Page<Item> getItems(PageRequest pageRequest, Long typeId) {

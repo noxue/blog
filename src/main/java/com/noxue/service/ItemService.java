@@ -24,22 +24,9 @@ public interface ItemService {
     public Type GetType(Long typeId);
     public Type GetType(String urlName);
 
-    public List<Type> GetTypes();
-
-    /**
-     * 获取指定分类的所有下级分类
-     * @param parrentTypeId
-     * @return
-     */
-    public List<Type> GetTypes(Pageable pageable,Long parrentTypeId);
 
     public List<TypeSub> GetAllTypes();
-    /**
-     * ge
-     * @param parrentTypeId
-     * @return
-     */
-    public Page<Type> GetTypesWithPage(Pageable pageable,Long parrentTypeId);
+
 
     ///=======================================================================================
     public Long SaveItem(Item item);
@@ -47,8 +34,6 @@ public interface ItemService {
     public Item GetItem(Long itemId);
 
     public Item GetItem(String urlName);
-
-    public List<Item> GetItems(Long typeId);
 
     public Page<Item> getItems(PageRequest pageRequest, Long typeId);
 }

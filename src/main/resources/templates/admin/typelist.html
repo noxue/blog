@@ -8,7 +8,7 @@
 <div>
     <div th:each="t:${types}">
         <p><a th:text="${t.type.name}" th:href="@{/admin/type/}+${t.type.urlName}"></a> | <a th:text="查看文章列表" th:href="@{/admin/type/}+${t.type.urlName+'/items'}"></a> </p>
-        <p th:each="tt:${t.getSubs()}"><a  th:text="${'&nbsp;&nbsp;&nbsp;&nbsp;'+tt.type.name}" th:href="@{/admin/type/}+${tt.type.urlName}"></a>  | <a th:text="查看文章列表" th:href="@{/admin/type/}+${t.type.urlName+'/items'}"></a></p>
+        <p th:each="tt:${t.getSubs()}"><a  th:text="${'&nbsp;&nbsp;&nbsp;&nbsp;'+tt.type.name}" th:href="@{/admin/type/}+${tt.type.urlName}"></a>  | <a th:text="查看文章列表" th:href="@{/admin/type/}+${tt.type.urlName+'/items'}"></a></p>
     </div>
 </div>
 </body>

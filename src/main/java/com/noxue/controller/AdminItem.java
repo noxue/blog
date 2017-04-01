@@ -2,6 +2,7 @@ package com.noxue.controller;
 
 import com.noxue.domain.Item;
 import com.noxue.domain.Type;
+import com.noxue.model.ItemModel;
 import com.noxue.model.TypeModel;
 import com.noxue.model.TypeSub;
 import com.noxue.service.ItemService;
@@ -82,7 +83,6 @@ public class AdminItem {
     @RequestMapping(value = {"/type/{urlName}"}, method = RequestMethod.GET)
     public String type(@PathVariable String urlName, Model model) {
         Type type = itemService.GetType(urlName);
-        List<Type> typs = itemService.GetTypes();
 
         List<TypeSub> types = itemService.GetAllTypes();
         model.addAttribute("types", types);
@@ -127,9 +127,22 @@ public class AdminItem {
 
 
     @RequestMapping(value = "/item", method = RequestMethod.POST)
-    public String item() {
+    public String item(@Valid ItemModel itemModel, BindingResult bindingResult, Model model) {
 
-        return "admin/item";
+        if(bindingResult.hasErrors()){
+            model.addAttribute("item", itemModel);
+            return "admin/item";
+        }
+
+        Item item = new Item();
+
+        BeanUtils.copyProperties(itemModel, item);
+
+        itemService.SaveItem(item);
+
+        Type type = itemService.GetType(item.getTypeId());
+
+        return "redirect:/admin/type/"+type.getUrlName()+"/items";
     }
 
 
