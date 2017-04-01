@@ -3,6 +3,7 @@ package com.noxue.domain;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -10,21 +11,6 @@ import java.util.Date;
  */
 @Entity
 public class Item {
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", typeId=" + typeId +
-                ", orderId=" + orderId +
-                ", urlName='" + urlName + '\'' +
-                ", title='" + title + '\'' +
-                ", contentText='" + contentText + '\'' +
-                ", contentHtml='" + contentHtml + '\'' +
-                ", createdAt=" + createdAt +
-                ", prevId=" + prevId +
-                ", nextId=" + nextId +
-                '}';
-    }
 
     @Id
     @GeneratedValue
@@ -40,6 +26,17 @@ public class Item {
 
     private String title;
 
+    @Size(max = 255)
+    private String seoTitle="";
+
+    @Size(max = 255)
+    private String seoKeywords="";
+
+
+    @Size(max = 255)
+
+    private String seoDescription="";
+
     @Lob
     @Column(nullable = false)
     private String contentText;
@@ -53,6 +50,8 @@ public class Item {
     private Long prevId;
 
     private Long nextId;
+
+
 
     public Long getId() {
         return id;
@@ -133,4 +132,28 @@ public class Item {
     public void setNextId(Long nextId) {
         this.nextId = nextId;
     }
+    public String getSeoTitle() {
+        return seoTitle;
+    }
+
+    public void setSeoTitle(String seoTitle) {
+        this.seoTitle = seoTitle;
+    }
+
+    public String getSeoKeywords() {
+        return seoKeywords;
+    }
+
+    public void setSeoKeywords(String seoKeywords) {
+        this.seoKeywords = seoKeywords;
+    }
+
+    public String getSeoDescription() {
+        return seoDescription;
+    }
+
+    public void setSeoDescription(String seoDescription) {
+        this.seoDescription = seoDescription;
+    }
+
 }

@@ -108,8 +108,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Page<Item> getItems(PageRequest pageRequest, Long typeId) {
-        PageRequest request = new PageRequest(1,5);
-        return itemDao.findAll(request);
+
+        return itemDao.findAllByTypeIdOrderByOrderIdAsc(pageRequest, typeId);
     }
 
 

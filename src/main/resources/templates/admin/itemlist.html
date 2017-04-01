@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>分类列表</title>
+</head>
+<body>
+<div>
+    <div>
+        <p th:text="${'total:'+total}"></p>
+        <p th:text="${'page:'+page}"></p>
+    </div>
+    <ul>
+        <li th:each="item:${items}">
+            <a th:href="@{/admin/item/}+${item.urlName}" th:text="${item.title}" href="xx">yyy</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

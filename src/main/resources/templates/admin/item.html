@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>发布文章</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="/admin/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="/admin/css/editormd.min.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/back/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/back/css/editormd.min.css}" />
 </head>
 
 <body>
@@ -13,48 +12,53 @@
 <form method="post">
     <div class="title">
         <label for="title">标题</label>
-        <input type="text" name="title" id="title" />
+        <input th:value="${item?.title}" type="text" name="title" id="title" />
     </div>
-    <div class="type">
-        <label for="type">链接别名</label>
-        <select id="type" name="type">
+    <div class="typeId">
+        <label for="typeId">链接别名</label>
+        <select id="typeId" name="typeId" >
             <option value="0">选择分类</option>
-            <option value="1">分类1</option>
-            <option value="2">分类2</option>
+            <optgroup  th:each="t:${types}">
+                <option th:value="${t.type.id}" th:text="${t.type.name}"  th:selected="${item?.typeId==t.type.id}" value="1">分类1</option>
+                <option th:each="tt:${t.getSubs()}" th:value="${tt.type.id}" th:text="${'|--'+tt.type.name}" th:selected="${item?.typeId==tt.type.id}"></option>
+            </optgroup>
         </select>
     </div>
     <div class="urlname">
         <label for="urlname">链接别名</label>
-        <input type="text" name="urlname" id="urlname" />
+        <input th:value="${item?.urlName}" type="text" name="urlName" id="urlname" />
     </div>
-    <div class="seokeywords">
-        <label for="seokeywords">SEO关键词</label>
-        <input type="text" name="seokeywords" id="seokeywords" />
-    </div>
-
-    <div class="seodescription">
-        <label for="seodescription">SEO描述</label>
-        <input type="text" name="seodescription" id="seodescription" />
+    <div class="seoKeywords">
+        <label for="seoKeywords">SEO关键词</label>
+        <input th:value="${item?.seoKeywords}" type="text" name="seoKeywords" id="seoKeywords" />
     </div>
 
+    <div class="seoDescription">
+        <label for="seoDescription">SEO描述</label>
+        <input th:value="${item?.seoDescription}" type="text" name="seoDescription" id="seodescription" />
+    </div>
+    <div class="orderId">
+        <label for="orderId">排序编号</label>
+        <input th:value="${item?.orderId}" type="text" name="orderId" id="orderId" value="0" />
+    </div>
     <div class="content" id="editor">
-        <label for="content">SEO关键词</label>
-        <textarea name="content" id="content" style="display: none;"></textarea>
+        <label for="contentText">文章内容</label>
+        <textarea th:text="${item?.contentText}"  name="contentText" id="contentText" style="display: none;"></textarea>
     </div>
     <div class="submit" id="submit">
         <button>发布文章</button>
     </div>
 </form>
 
-<script src="/admin/js/jquery.min.js"></script>
-<script src="/admin/js/editormd.min.js"></script>
+<script th:src="@{/back/js/jquery.min.js}"></script>
+<script th:src="@{/back/js/editormd.min.js}"></script>
 <script type="text/javascript">
     $(function() {
         var testEditor = editormd("editor", {
             width: "100%",
             height: 640,
             markdown : "",
-            path : '/admin/lib/',
+            path : '/back/lib/',
             //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为 true
             //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为 true
             //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为 true
@@ -62,7 +66,7 @@
             //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为 #fff
             imageUpload : true,
             imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL : "/admin/php/upload.php?test=dfdf",
+            imageUploadURL : "/back/php/upload.php?test=dfdf",
 
             /*
              上传的后台只需要返回一个 JSON 数据，结构如下：

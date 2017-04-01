@@ -3,6 +3,7 @@ package com.noxue.model;
 import com.noxue.domain.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,6 +15,7 @@ public class TypeModel{
 
     private Long id;
 
+    @Range(min = 0)
     private Long pid;
 
     private Integer orderId;

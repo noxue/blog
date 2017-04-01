@@ -5,6 +5,7 @@ import com.noxue.domain.Type;
 import com.noxue.model.TypeModel;
 import com.noxue.model.TypeSub;
 import com.noxue.service.ItemService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -115,10 +116,35 @@ public class AdminItem {
         return "/admin/typelist";
     }
 
-    @RequestMapping("/item/{name}")
-    public String item(@PathVariable  String name) {
 
-        System.out.println(itemService.GetItem(name));
+
+    @RequestMapping(value = "/item", method = RequestMethod.GET)
+    public String item(Model model) {
+        List<TypeSub> types = itemService.GetAllTypes();
+        model.addAttribute("types", types);
+        return "admin/item";
+    }
+
+
+    @RequestMapping(value = "/item", method = RequestMethod.POST)
+    public String item() {
+
+        return "admin/item";
+    }
+
+
+
+    @RequestMapping("/item/{name}")
+    public String item(@PathVariable  String name, Model model) {
+
+        Item item = itemService.GetItem(name);
+        Type type = itemService.GetType(item.getTypeId());
+
+        List<TypeSub> types = itemService.GetAllTypes();
+        model.addAttribute("types", types);
+
+        model.addAttribute("item", item);
+        model.addAttribute("type", type);
 
         return "admin/item";
     }
@@ -128,16 +154,16 @@ public class AdminItem {
      * @return
      */
     @RequestMapping("/type/{urlName}/items")
-    @ResponseBody
-    public String items(@PathVariable  String urlName, Model model, @RequestParam  int page) {
+    public String items(@PathVariable  String urlName, Model model, @RequestParam(defaultValue = "1")  int page) {
 
         Type type = itemService.GetType(urlName);
-        PageRequest pageRequest = new PageRequest(page, 5);
+        PageRequest pageRequest = new PageRequest(page-1, 10);
         Page<Item> pages = itemService.getItems(pageRequest, type.getId());
 
+        model.addAttribute("type", type);
         model.addAttribute("items", pages.getContent());
         model.addAttribute("total", pages.getTotalPages());
         model.addAttribute("page",page);
-        return "";
+        return "/admin/itemlist";
     }
 }

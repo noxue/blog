@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -32,6 +33,7 @@ public class Type implements Serializable {
 
     @Column(unique = true, length = 100)
     private String urlName;
+
 
     private String seoTitle="";
 
