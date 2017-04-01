@@ -1,6 +1,5 @@
 package com.noxue;
 
-import com.noxue.dao.UserDao;
 import com.noxue.domain.Type;
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Long SaveType(Type type) {
+
         return typeDao.save(type).getId();
     }
 
@@ -48,22 +50,34 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Type> GetTypes() {
 
-//        TypeSub typeSub = new TypeSub();
-//
-//        for(Type type:typeDao.findAll()) {
-//            TypeModel typeModel = new TypeModel();
-//            BeanUtils.copyProperties(type, typeModel);
-//            typeSub.getTypes().add(typeModel);
-//        }
-//
-//        return types;
-
         return null;
     }
 
     @Override
     public List<Type> GetTypes(Pageable pageable, Long parrentTypeId) {
         return null;
+    }
+
+    @Override
+    public List<TypeSub> GetAllTypes() {
+
+        List<TypeSub> tss = new ArrayList<TypeSub>();
+
+        for(Type t : typeDao.findAllByPid(0L)) {
+            TypeSub ts = new TypeSub();
+            ts.setType(t);
+
+            //获取子菜单,如果有子目录，就添加
+            for(Type tt:typeDao.findAllByPid(t.getId())) {
+                TypeSub tsb = new TypeSub();
+                tsb.setType(tt);
+                ts.getSubs().add(tsb);
+            }
+
+            tss.add(ts);
+        }
+
+        return tss;
     }
 
     @Override

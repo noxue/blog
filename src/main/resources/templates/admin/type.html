@@ -28,10 +28,13 @@
 
     <div class="pid">
         <label for="pid">上级分类</label>
-        <select id="pid" name="pid">
+        <select id="pid" name="pid" >
             <option value="0">选择分类</option>
-            <option th:selected="${type?.pid==1}" value="1">分类1</option>
-            <option th:selected="${type?.pid==2}" value="2">分类2</option>
+            <optgroup  th:each="t:${types}">
+                <option th:value="${t.type.id}" th:text="${t.type.name}"  th:selected="${type?.pid==t.type.id}" value="1">分类1</option>
+                <option th:each="tt:${t.getSubs()}" th:value="${tt.type.id}" th:text="${'|--'+tt.type.name}" th:selected="${type?.pid==tt.type.id}"></option>
+            </optgroup>
+            <!--<option th:each="t:${typs.getSubs()}" th:value="${t.type.id}" th:text="|&#45;&#45;${t.type.name}" th:selected="${type?.pid==t.type.id}" value="1">分类1</option>-->
         </select>
         <p th:if="${typeModel!=null and #fields.hasErrors('pid')}" th:errors="*{pid}">errors</p>
     </div>

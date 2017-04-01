@@ -2,6 +2,7 @@ package com.noxue.service;
 
 import com.noxue.domain.Item;
 import com.noxue.domain.Type;
+import com.noxue.model.TypeSub;
 import org.hibernate.validator.internal.xml.GetterType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +33,7 @@ public interface ItemService {
      */
     public List<Type> GetTypes(Pageable pageable,Long parrentTypeId);
 
+    public List<TypeSub> GetAllTypes();
     /**
      * ge
      * @param parrentTypeId

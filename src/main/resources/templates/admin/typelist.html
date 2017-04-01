@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>分类列表</title>
+</head>
+<body>
+<div>
+    <div th:each="t:${types}">
+        <p><a th:text="${t.type.name}" th:href="@{/admin/type/}+${t.type.urlName}"></a> </p>
+        <p th:each="tt:${t.getSubs()}"><a  th:text="${'&nbsp;&nbsp;&nbsp;&nbsp;'+tt.type.name}" th:href="@{/admin/type/}+${tt.type.urlName}"></a> </p>
+    </div>
+</div>
+</body>
+</html>

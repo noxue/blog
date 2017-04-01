@@ -1,5 +1,8 @@
 package com.noxue.model;
 
+import com.noxue.domain.Type;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,27 +11,28 @@ import java.util.List;
  */
 public class TypeSub{
 
-    private List<TypeModel> types = null;
+    private Type type = null;
 
-    private TypeSub sub=null;
+    private List<TypeSub> subs=null;
 
     public TypeSub() {
-        types = new LinkedList<TypeModel>();
+        type = new Type();
+        subs = new ArrayList<TypeSub>();
     }
 
-    public List<TypeModel> getTypes() {
-        return types;
+    public Type getType() {
+        return type;
     }
 
-    public void setTypes(List<TypeModel> types) {
-        this.types = types;
+    public void setType(Type type) {
+        this.type = type;
     }
 
-    public TypeSub getSub() {
-        return sub;
+    public List<TypeSub> getSubs() {
+        return subs;
     }
 
-    public void setSub(TypeSub sub) {
-        this.sub = sub;
+    public void setSubs(List<TypeSub> subs) {
+        this.subs = subs;
     }
 }
