@@ -41,15 +41,35 @@ public class Type implements Serializable {
 
     private String seoDescription="";
 
+    @Lob
+    private String contentText;
+
+    @Lob
+    private String contentHtml;
+
     private Short status=0;
 
     @CreatedDate
     private Date createdAt;
 
-
     @ColumnDefault("0")
     private Boolean showItem;
 
+    public String getContentText() {
+        return contentText;
+    }
+
+    public void setContentText(String contentText) {
+        this.contentText = contentText;
+    }
+
+    public String getContentHtml() {
+        return contentHtml;
+    }
+
+    public void setContentHtml(String contentHtml) {
+        this.contentHtml = contentHtml;
+    }
 
     public String getUrlName() {
         return urlName;

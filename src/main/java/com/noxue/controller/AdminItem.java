@@ -36,37 +36,38 @@ public class AdminItem {
 
     @RequestMapping("")
     public String home() {
-//        for(long i=1; i<10; i++) {
-//            Item item = new Item();
-//            item.setTypeId(1L);
-//            item.setTitle("title"+i);
-//            item.setUrlName("url"+i);
-//            item.setContentText("contentText"+i);
-//            item.setOrderId(((int) i));
-//
-//            Long id  = itemService.SaveItem(item);
-//            System.out.println("已插入第"+i+"个，主键编号是"+id);
-//        }
-//
+        for(long i=1; i<10; i++) {
+            Item item = new Item();
+            item.setTypeId(1L);
+            item.setTitle("title"+i);
+            item.setUrlName("url"+i);
+            item.setContentText("contentText"+i);
+            item.setOrderId(((int) i));
 
-//        for(long i=1; i<10; i++) {
-//            Type type = new Type();
-//            type.setName("typename"+i);
-//            type.setUrlName("url"+i);
-//
-//
-//            if(i<4) {
-//                type.setPid(0L);
-//            } else if(i<6) {
-//                type.setPid(1L);
-//            } else {
-//                type.setPid(2L);
-//            }
-//
-//            type.setSeoTitle("seotitle"+i);
-//            type.setSeoKeywords("keywords"+i);
-//            Long id  = itemService.SaveType(type);            System.out.println("已插入第"+i+"个，主键编号是"+id);
-//        }
+            Long id  = itemService.SaveItem(item);
+            System.out.println("已插入第"+i+"个，主键编号是"+id);
+        }
+
+
+        for(long i=1; i<10; i++) {
+            Type type = new Type();
+            type.setName("typename"+i);
+            type.setUrlName("url"+i);
+            type.setContentText("# asdfasfasfasdfadf\n~~asfadf~~"+i+i+i+i);
+
+
+            if(i<4) {
+                type.setPid(0L);
+            } else if(i<6) {
+                type.setPid(1L);
+            } else {
+                type.setPid(2L);
+            }
+
+            type.setSeoTitle("seotitle"+i);
+            type.setSeoKeywords("keywords"+i);
+            Long id  = itemService.SaveType(type);            System.out.println("已插入第"+i+"个，主键编号是"+id);
+        }
         return "/admin/index";
     }
 

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>不学网教程</title>
+</head>
+<body>
+<div>
+    <div th:each="t:${types}">
+        <h2 th:text="${t.type.name}"></h2>
+        <div th:if="${t.getSubs().size()>0}" th:each="tt:${t.getSubs()}">
+            <a th:text="${t.type.name}" th:href="@{/}+${tt.type.urlName}"></a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

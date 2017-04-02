@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/back/css/editormd.preview.css}" />
+</head>
+<body>
+<div id="editor-view">
+    <pre id="content" style="display: none;" th:text="${item.contentText}"></pre>
+</div>
+
+
+    <!-- <script src="js/zepto.min.js"></script>
+      <script>
+          var jQuery = Zepto;  // 为了避免修改flowChart.js和sequence-diagram.js的源码，所以使用Zepto.js时想支持flowChart/sequenceDiagram就得加上这一句
+      </script> -->
+
+
+    <script th:src="@{/back/js/jquery.min.js}"></script>
+    <script th:src="@{/back/lib/marked.min.js}"></script>
+    <script th:src="@{/back/lib/prettify.min.js}"></script>
+    <script th:src="@{/back/lib/raphael.min.js}"></script>
+    <script th:src="@{/back/lib/underscore.min.js}"></script>
+    <script th:src="@{/back/lib/sequence-diagram.min.js}"></script>
+    <script th:src="@{/back/lib/flowchart.min.js}"></script>
+    <script th:src="@{/back/lib/jquery.flowchart.min.js}"></script>
+    <script th:src="@{/back/lib/underscore.min.js}"></script>
+
+    <script th:src="@{/back/js/editormd.min.js}"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            var  testEditormdView2;
+
+            testEditormdView2 = editormd.markdownToHTML("editor-view", {
+                markdown        : $("#content").text(),
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
+            });
+        });
+    </script>
+
+
+</body>
+</html>
