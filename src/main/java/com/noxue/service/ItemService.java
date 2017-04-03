@@ -1,9 +1,11 @@
 package com.noxue.service;
 
+import com.noxue.domain.Attach;
 import com.noxue.domain.Item;
 import com.noxue.domain.Type;
 import com.noxue.model.TypeSub;
 import org.hibernate.validator.internal.xml.GetterType;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,5 +37,11 @@ public interface ItemService {
 
     public Item GetItem(String urlName);
 
-    public Page<Item> getItems(PageRequest pageRequest, Long typeId);
+    public Page<Item> GetItems(PageRequest pageRequest, Long typeId);
+
+    public void DeleteItem(Long id);
+
+    ///==================================================================================
+    public Long SaveAttach(Attach attach);
+    public Resource GetAttach(String name);
 }

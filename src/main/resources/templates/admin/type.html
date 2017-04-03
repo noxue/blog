@@ -75,7 +75,7 @@
 
     <div class="contentText" id="editor">
         <label for="contentText">文章内容</label>
-        <textarea th:text="${item?.contentText}"  name="contentText" id="contentText" style="display: none;"></textarea>
+        <textarea th:text="${type?.contentText}"  name="contentText" id="contentText" style="display: none;"></textarea>
     </div>
     <p th:if="${itemModel!=null and #fields.hasErrors('contentText')}" th:errors="*{contentText}">errors</p>
 

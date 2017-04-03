@@ -43,6 +43,10 @@ public class TypeModel{
 
     private Boolean showItem;
 
+    private String contentText;
+
+    private String contentHtml;
+
     public Long getId() {
         return id;
     }
@@ -121,5 +125,21 @@ public class TypeModel{
 
     public void setShowItem(Boolean showItem) {
         this.showItem = showItem;
+    }
+
+    public String getContentText() {
+        return contentText;
+    }
+
+    public void setContentText(String contentText) {
+        this.contentText = contentText;
+    }
+
+    public String getContentHtml() {
+        return contentHtml;
+    }
+
+    public void setContentHtml(String contentHtml) {
+        this.contentHtml = contentHtml;
     }
 }

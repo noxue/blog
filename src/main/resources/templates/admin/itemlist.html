@@ -12,7 +12,7 @@
     </div>
     <ul>
         <li th:each="item:${items}">
-            <a th:href="@{/admin/item/}+${item.urlName}" th:text="${item.title}" href="xx">yyy</a>
+            <a th:href="@{/admin/item/}+${item.urlName}" th:text="${item.title}" href="xx">yyy</a> | <a th:href="${'/admin/item/'+item.id+'/delete'}" href="#">删除</a>
         </li>
     </ul>
 </div>

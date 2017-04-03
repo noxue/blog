@@ -1,19 +1,29 @@
 package com.noxue.service.impl;
 
+import com.noxue.dao.AttachDao;
 import com.noxue.dao.ItemDao;
 import com.noxue.dao.TypeDao;
+import com.noxue.domain.Attach;
 import com.noxue.domain.Item;
 import com.noxue.domain.Type;
 import com.noxue.model.TypeModel;
 import com.noxue.model.TypeSub;
 import com.noxue.service.ItemService;
+import javassist.bytecode.stackmap.TypeData;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +40,11 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private TypeDao typeDao;
 
+    @Autowired
+    private AttachDao attachDao;
+
+    @Value("${upload.root}")
+    private String UPLOAD_ROOT;
 
     @Override
     public Long SaveType(Type type) {
@@ -79,7 +94,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item GetItem(Long itemId) {
-        return null;
+        return itemDao.findOne(itemId);
     }
 
     @Override
@@ -89,9 +104,50 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public Page<Item> getItems(PageRequest pageRequest, Long typeId) {
+    public Page<Item> GetItems(PageRequest pageRequest, Long typeId) {
 
         return itemDao.findAllByTypeIdOrderByOrderIdAsc(pageRequest, typeId);
+    }
+
+    @Override
+    public void DeleteItem(Long id) {
+        itemDao.delete(id);
+    }
+
+    @Override
+    public Long SaveAttach(Attach attach) {
+        return attachDao.save(attach).getId();
+    }
+
+    @Override
+    public Resource GetAttach(String name) {
+
+        //防止用户利用上级目录跳出当前目录
+        if(name.contains("..")) {
+            return null;
+        }
+
+        String fileName = new File(UPLOAD_ROOT).getAbsolutePath()+File.separator
+                + name.replace("-",File.separator);
+
+      //  fileName = fileName.replace("\\", "\\\\");
+
+        if(!new File(fileName).exists()) {
+            return null;
+        }
+
+        try {
+            Resource resource = new UrlResource("file",fileName);
+            if(resource.exists() || resource.isReadable()) {
+                return resource;
+            }
+            else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
