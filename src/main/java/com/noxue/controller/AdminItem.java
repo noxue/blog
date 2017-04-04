@@ -80,7 +80,7 @@ public class AdminItem {
 //            type.setSeoKeywords("keywords"+i);
 //            Long id  = itemService.SaveType(type);            System.out.println("已插入第"+i+"个，主键编号是"+id);
 //        }
-        return "/admin/index";
+        return "admin/index";
     }
 
 
@@ -196,7 +196,7 @@ public class AdminItem {
         List<TypeSub> types = itemService.GetAllTypes();
         model.addAttribute("types", types);
 
-        return "/admin/typelist";
+        return "admin/typelist";
     }
 
 
@@ -262,7 +262,7 @@ public class AdminItem {
         model.addAttribute("items", pages.getContent());
         model.addAttribute("total", pages.getTotalPages());
         model.addAttribute("page",page);
-        return "/admin/itemlist";
+        return "admin/itemlist";
     }
 
     @RequestMapping(value = "/item/{id}/delete")
