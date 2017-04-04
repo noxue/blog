@@ -11,4 +11,5 @@ import java.util.List;
 public interface TypeDao extends CrudRepository<Type, Long> {
     public Type findByUrlName(String name);
     public List<Type> findAllByPid(Long pid);
+    public List<Type> findAllByPidAndShowItemOrderByOrderId(Long pid, Boolean showItem);
 }

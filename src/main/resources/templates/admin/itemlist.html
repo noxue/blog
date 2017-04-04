@@ -7,8 +7,7 @@
 <body>
 <div>
     <div>
-        <p th:text="${'total:'+total}"></p>
-        <p th:text="${'page:'+page}"></p>
+        <p th:text="${'total:'+items.size()}"></p>
     </div>
     <ul>
         <li th:each="item:${items}">

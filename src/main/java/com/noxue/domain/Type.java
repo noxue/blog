@@ -52,6 +52,7 @@ public class Type implements Serializable {
     @CreatedDate
     private Date createdAt;
 
+    // 默认是false，表示显示二级目录，如果是true表示直接读取文章列表
     @ColumnDefault("0")
     private Boolean showItem;
 

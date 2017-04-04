@@ -3,17 +3,16 @@ package com.noxue.controller;
 import com.noxue.domain.Item;
 import com.noxue.domain.Type;
 import com.noxue.service.ItemService;
+import com.noxue.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -25,13 +24,35 @@ public class Index {
     @Autowired
     ItemService itemService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
-
-        model.addAttribute("types", itemService.GetAllTypes());
-
+        model.addAttribute("types", itemService.GetAllTypes(false));
         return "pc/index";
     }
+
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("admin");
+        return "redirect:/";
+    }
+
+
+        @RequestMapping(value = "/login/callback", method = RequestMethod.GET)
+    public String callback(@RequestParam  String authkey, HttpServletRequest request) {
+        if(userService.Check(authkey)) {
+            request.getSession().setAttribute("admin","admin");
+            return "redirect:/admin";
+        }
+
+        request.getSession().removeAttribute("admin");
+        return "redirect:"+userService.GetLoginUrl();
+    }
+
+
 
     @RequestMapping(value = "/{urlName}")
     public String type(@PathVariable String urlName, Model model) {

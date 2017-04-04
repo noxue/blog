@@ -64,17 +64,22 @@ public class ItemServiceImpl implements ItemService {
 
 
 
-
     @Override
     public List<TypeSub> GetAllTypes() {
+        return GetAllTypes(true);
+    }
+
+    @Override
+    public List<TypeSub> GetAllTypes(boolean all) {
 
         List<TypeSub> tss = new ArrayList<TypeSub>();
 
-        for(Type t : typeDao.findAllByPid(0L)) {
+        //只获取显示子目录的，false表示不显示文章的，在domain.Type里面有注释
+        for(Type t : all?typeDao.findAllByPid(0L):typeDao.findAllByPidAndShowItemOrderByOrderId(0L, false)) {
             TypeSub ts = new TypeSub();
             ts.setType(t);
 
-            //获取子菜单,如果有子目录，就添加
+            //获取子菜单,如果有子目录，就添加,
             for(Type tt:typeDao.findAllByPid(t.getId())) {
                 TypeSub tsb = new TypeSub();
                 tsb.setType(tt);
@@ -100,6 +105,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item GetItem(String urlName) {
         return itemDao.getByUrlName(urlName);
+    }
+
+    @Override
+    public List<Item> GetItems(Long typeId) {
+        return itemDao.findAllByTypeIdOrderByOrderIdAsc(typeId);
     }
 
 

@@ -2,13 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
-
+    <title th:text="${item.title+' - 不学网博客'}">文章分类</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" th:content="${type.seoKeywords}" content="" />
+    <meta name="description" th:content="${type.seoDescription}" content="不学网，为初学者提供各类入门教程，c/c++,java,pyhton,golang,数据库等入门教程" />
+    <meta name="author" content="刘荣飞" />
     <link rel="stylesheet" type="text/css" th:href="@{/back/css/editormd.preview.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/web/css/type.css}" />
 </head>
 <body>
-<textarea id="content" style="display: none;" th:text="${item.contentText}"></textarea>
-<div id="editor-view"></div>
+
+<div class="content">
+    <header>
+        <nav>
+            <a href="/" title="Home">不学网</a>
+            <a href="./" title="教程目录">教程目录</a>
+            <a title="订阅不学网最新动态" href="#">订阅</a>
+            <div class="nav_r">
+                <a th:if="${item.prevId>0}" title="" href="#">上一篇</a>
+                <a th:if="${item.nextId>0}" title="" href="#">下一篇</a>
+            </div>
+        </nav>
+    </header>
+    <h1 th:text="${item.title}">标题</h1>
+    <textarea id="content" style="display: none;" th:text="${item.contentText}"></textarea>
+    <div id="editor-view" style="width:auto;"></div>
+    <br/>
+    <br/>
+    <div class="bshare-custom"><a title="分享到" href="http://www.bShare.cn/" id="bshare-shareto" class="bshare-more">知识越分享越多</a><a title="分享到QQ空间" class="bshare-qzone">QQ空间</a><a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a><a title="分享到人人网" class="bshare-renren">人人网</a><a title="分享到腾讯微博" class="bshare-qqmb">腾讯微博</a><a title="分享到网易微博" class="bshare-neteasemb">网易微博</a><a title="更多平台" class="bshare-more bshare-more-icon"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=e3dc609f-b4cb-4844-ba95-bd56da5a51db&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+    <nav>
+        <a href="/" title="Home">不学网</a>
+        <a href="./" title="教程目录">教程目录</a>
+        <a title="返回顶部" href="#">返回顶部</a>
+        <div class="nav_r">
+            <a  title="" href="#">上一篇</a>
+            <a  title="" href="#">下一篇</a>
+        </div>
+    </nav>
+    <footer>
+        <div class="bottom">
+            © 2017 - 至今 刘荣飞 &#160;&#160; 联系方式: yes@onxue.com&#160;&#160;微信公众号：noxue_com
+        </div>
+    </footer>
+</div>
 
 <script th:src="@{/back/js/jquery.min.js}"></script>
 <script th:src="@{/back/lib/marked.min.js}"></script>
@@ -38,7 +74,6 @@
         $("#content").remove();
     });
 </script>
-
 
 </body>
 </html>

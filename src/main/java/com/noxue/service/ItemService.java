@@ -27,8 +27,18 @@ public interface ItemService {
     public Type GetType(String urlName);
 
 
-    public List<TypeSub> GetAllTypes();
+    /**
+     *
+     * @param all true表示获取所有的分类，false表示获取只显示二级目录的
+     * @return
+     */
+    public List<TypeSub> GetAllTypes(boolean all);
 
+    /**
+     * 调用 GetAllTypes(boolean all);  默认参数true
+     * @return
+     */
+    public List<TypeSub> GetAllTypes();
 
     ///=======================================================================================
     public Long SaveItem(Item item);
@@ -37,6 +47,7 @@ public interface ItemService {
 
     public Item GetItem(String urlName);
 
+    public List<Item> GetItems(Long typeId);
     public Page<Item> GetItems(PageRequest pageRequest, Long typeId);
 
     public void DeleteItem(Long id);

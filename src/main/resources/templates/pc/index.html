@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>不学网教程</title>
+    <title>不学网博客 - 编程入门教程</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/web/css/style.css}" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="编程, 开发, 计算机编程, Java, 可视化窗口编程, 数据库, 安卓" />
+    <meta name="description" content="不学网，为初学者提供各类入门教程，c/c++,java,pyhton,golang,数据库等入门教程" />
+    <meta name="author" content="刘荣飞" />
 </head>
 <body>
-<div>
-    <div th:each="t:${types}">
-        <h2 th:text="${t.type.name}"></h2>
-        <div th:if="${t.getSubs().size()>0}" th:each="tt:${t.getSubs()}">
-            <a th:text="${tt.type.name}" th:href="@{/}+${tt.type.urlName}"></a>
+<div class="content">
+    <header>
+        <h1 class="main-title">不学网博客</h1>
+    </header>
+    <p>为编程初学者优质提供教程。主要提供编程语言/数据库/图形化编程等教程，教程来自个人书写/翻译国外教程/网上优质资源整合等。网站宗旨是为大家提供简洁明了优质的入门教程。</p>
+    <div class="cols-3">
+        <div th:each="t:${types}">
+            <h2 th:text="${t.type.name}">Graphics</h2>
+            <ul>
+                <li th:if="${t.getSubs().size()>0}" th:each="tt:${t.getSubs()}">
+                    <a  th:text="${tt.type.name}" th:href="@{/}+${tt.type.urlName}" href="tutorials/javagamestutorial/">Java 2D games tutorial</a>
+                </li>
+            </ul>
         </div>
-
     </div>
+    <br/>
+    <div class="bshare-custom"><a title="分享到" href="http://www.bShare.cn/" id="bshare-shareto" class="bshare-more">知识越分享越多</a><a title="分享到QQ空间" class="bshare-qzone">QQ空间</a><a title="分享到新浪微博" class="bshare-sinaminiblog">新浪微博</a><a title="分享到人人网" class="bshare-renren">人人网</a><a title="分享到腾讯微博" class="bshare-qqmb">腾讯微博</a><a title="分享到网易微博" class="bshare-neteasemb">网易微博</a><a title="更多平台" class="bshare-more bshare-more-icon"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=e3dc609f-b4cb-4844-ba95-bd56da5a51db&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+    <br/>
+    <footer>
+        <div class="bottom">
+            © 2017 - 至今 刘荣飞 &#160;&#160; 联系方式: yes@onxue.com&#160;&#160;微信公众号：noxue_com
+        </div>
+    </footer>
 </div>
 </body>
 </html>
