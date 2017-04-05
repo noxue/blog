@@ -31,6 +31,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+
         String url = request.getRequestURI();
         if(!url.startsWith("/admin")){
             return true;

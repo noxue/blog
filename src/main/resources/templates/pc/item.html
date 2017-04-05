@@ -35,13 +35,13 @@
         <a href="./" title="教程目录">教程目录</a>
         <a title="返回顶部" href="#">返回顶部</a>
         <div class="nav_r">
-            <a  title="" href="#">上一篇</a>
-            <a  title="" href="#">下一篇</a>
+            <a th:if="${item.prevId>0}" title="" href="#">上一篇</a>
+            <a th:if="${item.nextId>0}" title="" href="#">下一篇</a>
         </div>
     </nav>
     <footer>
         <div class="bottom">
-            © 2017 - 至今 刘荣飞 &#160;&#160; 联系方式: yes@onxue.com&#160;&#160;微信公众号：noxue_com
+            © 2017 - 至今 刘荣飞 &#160;&#160; 联系方式: yes@noxue.com&#160;&#160;微信公众号：noxue_com
         </div>
     </footer>
 </div>
