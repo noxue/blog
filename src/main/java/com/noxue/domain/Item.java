@@ -19,6 +19,8 @@ public class Item {
     @Column(nullable = false)
     private Long typeId;
 
+    private Long userId;
+
     private Integer orderId;
 
     @Column(unique = true, length = 100)
@@ -156,4 +158,11 @@ public class Item {
         this.seoDescription = seoDescription;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

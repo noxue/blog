@@ -1,6 +1,8 @@
 package com.noxue.service.impl;
 
 import com.noxue.service.UserService;
+import com.noxue.utils.SsoClient.Msg;
+import com.noxue.utils.SsoClient.SsoClient;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -47,27 +49,11 @@ public class UserServiceImpl implements UserService {
     public boolean Check(String authkey) {
         String url = CHECK_URL+"?appid="+APPIID+"&appkey="+APPKEY+"&authkey="+authkey;
 
-        String html = null;
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(url);
-        try {
-            CloseableHttpResponse response1 = httpclient.execute(httpGet);
-            try {
-                System.out.println(response1.getStatusLine());
-                HttpEntity entity1 = response1.getEntity();
+        SsoClient ssoClient = new SsoClient(CHECK_URL,APPIID,APPKEY);
 
-                html = EntityUtils.toString(entity1);
-            } finally {
-                response1.close();
-            }
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(html);
-
+        Msg msg = ssoClient.Check(authkey);
         //如果是管理员登陆，那么就返回true
-        if(html!=null && html.contains("\"nickname\":\"admin\"")) {
+        if(msg.getCode()==0 && msg.getData().getId()==1) {
             return true;
         }
 

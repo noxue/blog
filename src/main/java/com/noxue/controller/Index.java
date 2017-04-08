@@ -6,7 +6,6 @@ import com.noxue.service.ItemService;
 import com.noxue.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +65,8 @@ public class Index {
         return "pc/type";
     }
 
+
+
     @RequestMapping(value = "/{typeUrl}/{itemUrl}.html", method = RequestMethod.GET)
     public String item(Model model, @PathVariable  String typeUrl, @PathVariable String itemUrl) {
 
@@ -76,6 +77,18 @@ public class Index {
         model.addAttribute("item", item);
 
         return "pc/item";
+    }
+
+    @RequestMapping(value = "/raw/type/{typeUrl}", method = RequestMethod.GET)
+    public @ResponseBody String typeText(@PathVariable String typeUrl) {
+        Type type = itemService.GetType(typeUrl);
+        return type.getContentText();
+    }
+
+    @RequestMapping(value = "/raw/item/{itemUrl}", method = RequestMethod.GET)
+    public @ResponseBody String itemText(String typeUrl, @PathVariable String itemUrl) {
+        Item item = itemService.GetItem(itemUrl);
+        return item.getContentText();
     }
 
     @RequestMapping(value = "/upload/images/{filename:.+}")

@@ -66,35 +66,35 @@ nav a { margin-right: 0.4em}
     background-color:#efefef;
 }
 
-table {
-    border-top: 1px solid #999;
-    border-left: 1px solid #999;
-    border-collapse: collapse;
-    /* float:left;*/
-    /*     margin:15px; */
-}
+/*table {*/
+    /*border-top: 1px solid #999;*/
+    /*border-left: 1px solid #999;*/
+    /*border-collapse: collapse;*/
+    /*!* float:left;*!*/
+    /*!*     margin:15px; *!*/
+/*}*/
 
 
-td, th {
+/*td, th {*/
 
-    border-right: 1px solid #999;
-    border-bottom: 1px solid #999;
-}
+    /*border-right: 1px solid #999;*/
+    /*border-bottom: 1px solid #999;*/
+/*}*/
 
-th {
-    padding: 8px;
-    font-family: Georgia;
-    font-weight: bolder;
-    font-size: 12px;
-    letter-spacing: 1px;
-    background: url(/img/cmn/stripe.jpg);
-}
+/*th {*/
+    /*padding: 8px;*/
+    /*font-family: Georgia;*/
+    /*font-weight: bolder;*/
+    /*font-size: 12px;*/
+    /*letter-spacing: 1px;*/
+    /*background: url(/img/cmn/stripe.jpg);*/
+/*}*/
 
-td {
-    font-family: monospace;
-    font-size: 12px;
-    padding: 5px 10px 5px 10px;
-}
+/*td {*/
+    /*font-family: monospace;*/
+    /*font-size: 12px;*/
+    /*padding: 5px 10px 5px 10px;*/
+/*}*/
 
 .keyword {
     color: #074685

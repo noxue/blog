@@ -51,6 +51,8 @@ public class ItemModel {
 
     private Date createdAt;
 
+    private Long userId;
+
     @Range(min = 1)
     private Long prevId;
 
@@ -159,5 +161,13 @@ public class ItemModel {
 
     public void setNextId(Long nextId) {
         this.nextId = nextId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

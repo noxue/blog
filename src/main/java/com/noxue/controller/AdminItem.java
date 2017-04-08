@@ -8,6 +8,8 @@ import com.noxue.model.TypeModel;
 import com.noxue.model.TypeSub;
 import com.noxue.model.UpImgModel;
 import com.noxue.service.ItemService;
+import com.noxue.utils.ItemEncoder;
+import com.noxue.utils.TypeEncoder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -171,7 +174,7 @@ public class AdminItem {
     }
 
     @RequestMapping(value = "/type", method = RequestMethod.POST)
-    public String doType( @Valid TypeModel typeModel, BindingResult bindingResult, Model model) {
+    public String doType(HttpServletRequest request, @Valid TypeModel typeModel, BindingResult bindingResult, Model model) {
 
 
         if(bindingResult.hasErrors()) {
@@ -187,6 +190,12 @@ public class AdminItem {
         Type type = new Type();
         BeanUtils.copyProperties(typeModel, type);
         itemService.SaveType(type);
+
+        String url =request.getRequestURL().toString();
+        url = url.substring(0,url.indexOf("/",10));
+
+        TypeEncoder typeEncoder = new TypeEncoder(itemService,url, type.getUrlName());
+        new Thread(typeEncoder).start();
 
         return "redirect:/admin";
     }
@@ -205,12 +214,13 @@ public class AdminItem {
     public String item(Model model) {
         List<TypeSub> types = itemService.GetAllTypes();
         model.addAttribute("types", types);
+
         return "admin/item";
     }
 
 
     @RequestMapping(value = "/item", method = RequestMethod.POST)
-    public String item(@Valid ItemModel itemModel, BindingResult bindingResult, Model model) {
+    public String item(HttpServletRequest request, @Valid ItemModel itemModel, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()){
             List<TypeSub> types = itemService.GetAllTypes();
@@ -227,6 +237,10 @@ public class AdminItem {
 
         Type type = itemService.GetType(item.getTypeId());
 
+        String url =request.getRequestURL().toString();
+        url = url.substring(0,url.indexOf("/",10));
+        ItemEncoder itemEncoder = new ItemEncoder(itemService,url,item.getUrlName());
+        new Thread(itemEncoder).start();
         return "redirect:/admin/type/"+type.getUrlName()+"/items";
     }
 

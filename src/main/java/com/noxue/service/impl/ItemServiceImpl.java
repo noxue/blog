@@ -112,7 +112,6 @@ public class ItemServiceImpl implements ItemService {
         return itemDao.findAllByTypeIdOrderByOrderIdAsc(typeId);
     }
 
-
     @Override
     public Page<Item> GetItems(PageRequest pageRequest, Long typeId) {
 

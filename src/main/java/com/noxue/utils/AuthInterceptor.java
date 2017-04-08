@@ -1,6 +1,5 @@
 package com.noxue.utils;
 
-import com.noxue.service.ItemService;
 import com.noxue.service.UserService;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +44,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         }
         return true;
     }
+
+
 }

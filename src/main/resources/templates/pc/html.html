@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="author" content="刘荣飞" />
+</head>
+<body>
+哈哈
+<div class="content">
+    <textarea id="content" style="display: none;" th:text="${html}"></textarea>
+    <noxue id="editor-view" style="width:auto;"></noxue>
+</div>
+
+<script th:src="@{/back/js/jquery.min.js}"></script>
+<script th:src="@{/back/lib/marked.min.js}"></script>
+<script th:src="@{/back/lib/prettify.min.js}"></script>
+<script th:src="@{/back/lib/raphael.min.js}"></script>
+<script th:src="@{/back/lib/underscore.min.js}"></script>
+<script th:src="@{/back/lib/sequence-diagram.min.js}"></script>
+<script th:src="@{/back/lib/flowchart.min.js}"></script>
+<script th:src="@{/back/lib/jquery.flowchart.min.js}"></script>
+<script th:src="@{/back/lib/underscore.min.js}"></script>
+
+<script th:src="@{/back/js/editormd.min.js}"></script>
+
+<script type="text/javascript">
+    $(function() {
+        var  testEditormdView2;
+        testEditormdView2 = editormd.markdownToHTML("editor-view", {
+            markdown        : $("#content").val(),
+            htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
+        });
+        $("#content").remove();
+    });
+</script>
+
+
+</body>
+</html>

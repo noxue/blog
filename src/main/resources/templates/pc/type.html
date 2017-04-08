@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="keywords" th:content="${type.seoKeywords}" content="" />
     <meta name="description" th:content="${type.seoDescription}" content="不学网，为初学者提供各类入门教程，c/c++,java,pyhton,golang,数据库等入门教程" />
-    <meta name="author" content="刘荣飞" />
-    <link rel="stylesheet" type="text/css" th:href="@{/back/css/editormd.preview.css}" />
+    <meta name="author" content="不学网" />
     <link rel="stylesheet" type="text/css" th:href="@{/web/css/type.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/back/css/editormd.preview.css}" />
 </head>
 <body>
 
@@ -25,8 +25,7 @@
 
     <h1 th:text="${type.name}">标题</h1>
 
-    <textarea id="content" style="display: none;" th:text="${type.contentText}"></textarea>
-    <div id="editor-view" style="width:auto;"></div>
+    <div id="editor-view" th:utext="${type.contentHtml}" style="width:auto;"></div>
     <h2>教程目录</h2>
     <ul>
         <li th:each="item:${items}">
@@ -55,20 +54,22 @@
 
 <script th:src="@{/back/js/editormd.min.js}"></script>
 
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
+
     $(function() {
         var  testEditormdView2;
-
-        testEditormdView2 = editormd.markdownToHTML("editor-view", {
-            markdown        : $("#content").val(),
-            htmlDecode      : "style,script,iframe",  // you can filter tags decode
-            emoji           : true,
-            taskList        : true,
-            tex             : true,  // 默认不解析
-            flowChart       : true,  // 默认不解析
-            sequenceDiagram : true,  // 默认不解析
+        $.get('/raw/type/'+[[${type.urlName}]], function(md) {
+            $("#editor-view").html("");
+            testEditormdView2 = editormd.markdownToHTML("editor-view", {
+                markdown: md,
+                htmlDecode: "style,script,iframe",  // you can filter tags decode
+                emoji: true,
+                taskList: true,
+                tex: true,  // 默认不解析
+                flowChart: true,  // 默认不解析
+                sequenceDiagram: true,  // 默认不解析
+            });
         });
-        $("#content").remove();
     });
 </script>
 <script>
