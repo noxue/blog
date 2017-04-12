@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <title th:text="${item.title+' - 不学网博客'}">文章分类</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="keywords" th:content="${type.seoKeywords}" content="" />
-    <meta name="description" th:content="${type.seoDescription}" content="不学网，为初学者提供各类入门教程，c/c++,java,pyhton,golang,数据库等入门教程" />
+    <meta name="keywords" th:content="${item.seoKeywords}" content="" />
+    <meta name="description" th:content="${item.seoDescription}" content="不学网，为初学者提供各类入门教程，c/c++,java,pyhton,golang,数据库等入门教程" />
     <meta name="author" content="不学网" />
     <link rel="stylesheet" type="text/css" th:href="@{/web/css/type.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/back/css/editormd.preview.css}" />
