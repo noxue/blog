@@ -15,6 +15,7 @@
         <h1 class="main-title">不学网博客</h1>
     </header>
     <p>为编程初学者优质提供教程。主要提供编程语言/数据库/图形化编程等教程，教程来自个人书写/翻译国外教程/网上优质资源整合等。网站宗旨是为大家提供简洁明了优质的入门教程。</p>
+    <p><b style="color:orangered;">自学去论坛教程资源下载地址：</b><a th:href="${'http://pan.baidu.com/share/home?uk=2802741345'}" target="_blank">点击获取</a>&nbsp;&nbsp;&nbsp;&nbsp;<b>关注不学网公众号，了解最新动态，获取最新教程资源，公众号见网站底部。</b></p>
     <div class="cols-3">
         <div th:each="t:${types}">
             <h2 th:text="${t.type.name}">Graphics</h2>
