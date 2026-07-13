@@ -1,7 +1,6 @@
 ---
 title: "关于"
 date: 2026-07-13
-comment: true
 math: false
 ---
 
