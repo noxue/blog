@@ -21,7 +21,7 @@ dateFormat = "2006-01-02"
 images = ["/images/avatar.webp"]
 # enable PWA
 # 开启 PWA 支持
-enablePWA = false
+enablePWA = true
 # license information
 # 许可协议信息 (支持 HTML 格式)
 license = '<a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
@@ -74,7 +74,22 @@ bundle = false
   enable = true
   # Custom content (HTML format is supported)
   # 自定义内容 (支持 HTML 格式)
-  custom = ''
+  # Live2D 看板娘(全站角落显示)
+  custom = '''
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+<script>
+  window.addEventListener("load", function () {
+    if (window.L2Dwidget) {
+      L2Dwidget.init({
+        model: { jsonPath: "https://fastly.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json", scale: 1 },
+        display: { position: "right", width: 130, height: 260, hOffset: 0, vOffset: -20 },
+        mobile: { show: false },
+        react: { opacity: 0.85 }
+      });
+    }
+  });
+</script>
+'''
   # whether to show Hugo and theme info
   # 是否显示 Hugo 和主题信息
   hugo = true
@@ -145,7 +160,7 @@ bundle = false
   twemoji = false
   # whether to enable lightgallery
   # 是否使用 lightgallery
-  lightgallery = false
+  lightgallery = true
   # whether to include featured image in lightgallery (requires lightgallery = true)
   # 是否将特色图片包含在 lightgallery 中（需要 lightgallery = true）
   # featuredImageLightgallery = false
@@ -550,10 +565,11 @@ bundle = false
 # Sponsor config
 # 赞助设置
 [sponsor]
-  enable = false
-  bio = "If you find this post helpful, please consider sponsoring."
-  link = "https://github.com/sponsors/HEIGE-PCloud"
-  # custom = "<a href=\"https://www.buymeacoffee.com/PCloud\" target=\"_blank\"><img src=\"https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png\" alt=\"Buy Me A Coffee\" style=\"height: 40px !important;width: 145 !important;\" ></a>"
+  enable = true
+  bio = "如果这篇文章对你有帮助，欢迎请我喝杯咖啡 ☕"
+  link = ""
+  # 打赏收款码(把二维码图片放到 static/images/ 下即可)
+  custom = '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:12px"><figure style="margin:0;text-align:center"><img src="/images/reward-wechat.png" alt="微信赞赏码" style="width:160px;height:160px;object-fit:contain"><figcaption>微信</figcaption></figure><figure style="margin:0;text-align:center"><img src="/images/reward-alipay.png" alt="支付宝收款码" style="width:160px;height:160px;object-fit:contain"><figcaption>支付宝</figcaption></figure></div>'
 
 # TypeIt config
 # TypeIt 配置
@@ -574,7 +590,7 @@ bundle = false
 # Site verification code for Google/Bing/Yandex/Pinterest/Baidu/Naver
 # 网站验证代码，用于 Google/Bing/Yandex/Pinterest/Baidu/Naver
 [verification]
-  google = "MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4"
+  google = ""
   bing = ""
   yandex = ""
   pinterest = ""

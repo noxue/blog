@@ -36,4 +36,14 @@ func main() {
 
 $$\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}$$
 
+## 提示框 admonition
+
+{{< admonition type="tip" title="小贴士" >}}
+可以用 `note`、`tip`、`warning`、`danger`、`success`、`question`、`info` 等类型，做出各种彩色提示框。
+{{< /admonition >}}
+
+{{< admonition type="warning" title="注意" open=true >}}
+写技术文章时，用提示框标出「坑」和「注意事项」，读者一眼就能看到。
+{{< /admonition >}}
+
 到这里，博客的骨架就立起来了 🚀
