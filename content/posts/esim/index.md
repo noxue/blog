@@ -14,6 +14,8 @@ lightgallery: true   # 图片点击放大
 
 <!--more-->
 
+## YouTube 视频教程
+
 {{< admonition type="abstract" title="视频里会用到的网站" open=true >}}
 - [esimplus.me](https://esimplus.me) —— 申请海外号码、收发短信/来电/上网
 - [9esim.com](https://9esim.com) —— 把esim卡信息写入实体卡
@@ -22,6 +24,8 @@ lightgallery: true   # 图片点击放大
 直接看下面的视频即可，跟着操作就能搞定。
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/NPRW0H0dfm4?si=IBnICoYoLCPjX9HQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## 国内视频
 
 {{< admonition type="tip" title="没有国外网络看不了 YouTube？" open=true >}}
 可以在微信 **视频号** 观看同款教程，扫下方二维码关注「不学网」即可。
