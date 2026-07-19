@@ -15,8 +15,8 @@ lightgallery: true   # 图片点击放大
 <!--more-->
 
 {{< admonition type="abstract" title="视频里会用到的网站" open=true >}}
-- [esimplus.me](https://esimplus.me) —— 申请海外号码、收发短信/来电
-- [9esim.com](https://9esim.com) —— 购买上网流量 eSIM
+- [esimplus.me](https://esimplus.me) —— 申请海外号码、收发短信/来电/上网
+- [9esim.com](https://9esim.com) —— 把esim卡信息写入实体卡
 {{< /admonition >}}
 
 直接看下面的视频即可，跟着操作就能搞定。
