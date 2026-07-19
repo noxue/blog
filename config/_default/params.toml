@@ -565,7 +565,7 @@ bundle = false
 # Sponsor config
 # 赞助设置
 [sponsor]
-  enable = true
+  enable = false
   bio = "如果这篇文章对你有帮助，欢迎请我喝杯咖啡 ☕"
   link = ""
   # 打赏收款码(把二维码图片放到 static/images/ 下即可)
