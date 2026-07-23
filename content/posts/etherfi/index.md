@@ -60,7 +60,7 @@ lightgallery: true   # 图片点击放大
 闲鱼搜索 **`ether`**，找商家帮你实名。一般 200 元以内可以搞定。
 
 {{< admonition type="tip" title="哪个国家的身份都可以" open=true >}}
-实名用哪个国家的身份都行，只要不是中国的就可以，我的是泰国的实名。我用来开Claude/GPT 以及一些国外常用业务，一点问题都没有。
+实名用哪个国家的身份都行，只要不是中国的就可以，我的是泰国的实名。我用来开 Claude/GPT 以及一些国外常用业务，一点问题都没有。
 {{< /admonition >}}
 
 {{< admonition type="warning" title="尽量用自己注册的账号" open=true >}}
