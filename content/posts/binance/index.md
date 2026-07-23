@@ -33,9 +33,11 @@ lightgallery: true   # 图片点击放大
 
 
 ## 国内视频
-
-{{< admonition type="tip" title="没有国外网络看不了 YouTube？" open=true >}}
-可以在微信 **视频号** 观看同款教程，扫下方二维码关注「不学网」即可。
-{{< /admonition >}}
+国内的视频被删了，大家还是搞定网络问题去看国外的吧。
 
 ![不学网视频号二维码，微信扫码即可关注观看教程](1.jpeg "微信扫码关注「不学网」视频号")
+
+
+## 国外信用卡教程
+
+{{< showcase title="手把手：开一张国外信用卡（绑 App Store / Google Pay / 给 AI 充值）" summary="用 Ether.fi 开虚拟卡，充 USDC 就能刷。可绑 App Store、Google Pay，给 ChatGPT、Gemini、Claude 充值，消费还有最高 3% 返现。" image="/posts/etherfi/cover.png" link="/posts/etherfi/" column="1" >}}
