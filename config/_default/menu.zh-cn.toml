@@ -29,8 +29,8 @@
   pre = ""
   post = ""
   name = "工具箱"
-  url = "/tools/"
-  title = ""
+  url = "https://tools.noxue.com/"
+  title = "不学网在线工具箱"
   weight = 4
 [[main]]
   identifier = "about"
