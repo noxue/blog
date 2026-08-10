@@ -1,0 +1,666 @@
+<div class="asr" id="asr">
+  <noscript>
+    <p class="asr-note">本工具需要开启 JavaScript 才能使用。</p>
+  </noscript>
+
+  <div class="asr-banner" id="asr-banner" hidden>
+    <div class="asr-banner-icon" aria-hidden="true">⚠️</div>
+    <div class="asr-banner-body">
+      <strong id="asr-banner-title">请在 Safari 中打开本页面</strong>
+      <p id="asr-banner-desc">当前浏览器无法唤起 App Store，点击下面的地区不会有反应。</p>
+      <div class="asr-banner-actions">
+        <button type="button" class="asr-btn-mini" data-asr-copy>复制本页链接</button>
+        <span class="asr-copied" id="asr-copied" hidden>已复制 ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="asr-h">常用地区</h3>
+  <div class="asr-grid" id="asr-hot"></div>
+
+  <h3 class="asr-h">全部地区</h3>
+  <div class="asr-sticky">
+    <div class="asr-searchbar">
+      <span class="asr-search-icon" aria-hidden="true">🔍</span>
+      <input type="search" id="asr-q" autocomplete="off" autocorrect="off" autocapitalize="off"
+             spellcheck="false" enterkeyhint="search"
+             placeholder="搜索：美国、us、Japan" aria-label="搜索国家或地区">
+      <button type="button" id="asr-clear" class="asr-clear" hidden aria-label="清空">✕</button>
+    </div>
+    <div class="asr-count" id="asr-count"></div>
+  </div>
+  <div class="asr-grid" id="asr-all"></div>
+  <p class="asr-empty" id="asr-empty" hidden>没有匹配的国家或地区，换个关键词试试（支持中文名、英文名、两位国家代码）。</p>
+
+  <h3 class="asr-h">账户相关直达</h3>
+  <div class="asr-links">
+    <button type="button" class="asr-link" data-asr-url="itms-apps://apps.apple.com/account">App Store 账户页</button>
+    <button type="button" class="asr-link" data-asr-url="itms-apps://apps.apple.com/account/subscriptions">订阅管理</button>
+    <button type="button" class="asr-link" data-asr-url="itms-apps://apps.apple.com/account/billing">付款信息</button>
+    <a class="asr-link" href="https://account.apple.com" target="_blank" rel="noopener">Apple 账户网页版</a>
+  </div>
+</div>
+
+<div class="asr-modal" id="asr-modal" hidden role="dialog" aria-modal="true" aria-labelledby="asr-modal-title">
+  <div class="asr-modal-mask" data-asr-close></div>
+  <div class="asr-modal-box">
+    <h4 id="asr-modal-title">需要在 Safari 中打开</h4>
+    <p class="asr-modal-desc" id="asr-modal-desc"></p>
+    <ol class="asr-steps" id="asr-steps"></ol>
+    <div class="asr-urlbox">
+      <input type="text" id="asr-modal-url" readonly aria-label="本页链接">
+      <button type="button" class="asr-btn-mini" data-asr-copy>复制</button>
+    </div>
+    <div class="asr-modal-actions">
+      <button type="button" class="asr-btn-ghost" id="asr-force">仍要尝试跳转</button>
+      <button type="button" class="asr-btn" data-asr-close>知道了</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.asr { margin: 1rem 0 0; }
+.asr-h {
+  margin: 1.6rem 0 .7rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--fgColor-default, #333);
+}
+.asr-h:first-of-type { margin-top: .4rem; }
+
+.asr-banner {
+  display: flex;
+  gap: .7rem;
+  padding: .85rem 1rem;
+  margin-bottom: 1.2rem;
+  border-radius: 10px;
+  border: 1px solid rgba(230, 162, 60, .45);
+  background: rgba(230, 162, 60, .12);
+  line-height: 1.6;
+}
+.asr-banner-icon { flex: none; font-size: 1.1rem; line-height: 1.5; }
+.asr-banner-body { min-width: 0; }
+.asr-banner-body strong { display: block; font-size: .95rem; color: var(--fgColor-default, #333); }
+.asr-banner-body p { margin: .25rem 0 0; font-size: .85rem; color: var(--fgColor-secondary, #666); }
+.asr-banner-actions { margin-top: .55rem; display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+.asr-copied { font-size: .8rem; color: #67c23a; }
+
+.asr-sticky {
+  position: sticky;
+  top: 3.2rem;
+  z-index: 90;
+  padding: .5rem .75rem .1rem;
+  margin: 0 -.75rem .5rem;
+  background: var(--bgColor-default, #fff);
+}
+.asr-searchbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.asr-search-icon {
+  position: absolute;
+  left: .8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: .85rem;
+  opacity: .55;
+  pointer-events: none;
+}
+.asr-searchbar input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: .6rem 2.4rem;
+  /* 16px：低于 16px 时 iOS Safari 聚焦会自动放大页面 */
+  font-size: 16px;
+  color: var(--fgColor-default, #333);
+  background: var(--bgColor-default, #fff);
+  border: 1px solid var(--borderColor-default, #ddd);
+  border-radius: 999px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.asr-searchbar input:focus { border-color: var(--fgColor-link, #2d809a); }
+.asr-searchbar input::-webkit-search-cancel-button { display: none; }
+.asr-clear {
+  position: absolute;
+  right: .55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  font-size: .8rem;
+  line-height: 1;
+  color: var(--fgColor-secondary, #666);
+  background: var(--bgColor-secondary, #eee);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.asr-count { padding: .45rem 0 .4rem; font-size: .8rem; color: var(--fgColor-secondary, #888); }
+
+.asr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: .55rem;
+}
+.asr-item {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  width: 100%;
+  padding: .6rem .7rem;
+  font-size: .9rem;
+  font-family: inherit;
+  text-align: left;
+  color: var(--fgColor-default, #333);
+  background: var(--bgColor-default, #fff);
+  border: 1px solid var(--borderColor-default, #e4e4e4);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color .15s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.asr-item:hover { border-color: var(--fgColor-link, #2d809a); }
+.asr-item:active { transform: scale(.97); }
+.asr-flag { flex: none; font-size: 1.15rem; line-height: 1; }
+.asr-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-word;
+}
+.asr-cc { flex: none; font-size: .72rem; opacity: .5; letter-spacing: .04em; }
+
+.asr-empty { margin: 1rem 0; font-size: .88rem; color: var(--fgColor-secondary, #888); }
+.asr-note { font-size: .88rem; color: var(--fgColor-secondary, #888); }
+
+.asr-links { display: flex; flex-wrap: wrap; gap: .5rem; }
+.asr-link {
+  padding: .45rem .9rem;
+  font-size: .85rem;
+  font-family: inherit;
+  color: var(--fgColor-link, #2d809a);
+  background: var(--bgColor-default, #fff);
+  border: 1px solid var(--borderColor-default, #e4e4e4);
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.asr-link:hover { border-color: var(--fgColor-link, #2d809a); text-decoration: none; }
+
+.asr-btn, .asr-btn-ghost, .asr-btn-mini {
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.asr-btn {
+  padding: .45rem 1.1rem;
+  font-size: .88rem;
+  color: #fff;
+  background: var(--fgColor-link, #2d809a);
+}
+.asr-btn-ghost {
+  padding: .45rem 1.1rem;
+  font-size: .88rem;
+  color: var(--fgColor-secondary, #666);
+  background: transparent;
+  border-color: var(--borderColor-default, #ddd);
+}
+.asr-btn-mini {
+  padding: .3rem .7rem;
+  font-size: .78rem;
+  color: var(--fgColor-default, #333);
+  background: var(--bgColor-secondary, #eee);
+  border-color: var(--borderColor-default, #ddd);
+}
+
+.asr-modal { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.asr-modal-mask { position: absolute; inset: 0; background: rgba(0, 0, 0, .5); }
+.asr-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  padding: 1.2rem;
+  border-radius: 14px;
+  background: var(--bgColor-default, #fff);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .25);
+}
+.asr-modal-box h4 { margin: 0 0 .5rem; font-size: 1rem; color: var(--fgColor-default, #333); }
+.asr-modal-desc { margin: 0 0 .6rem; font-size: .86rem; line-height: 1.65; color: var(--fgColor-secondary, #666); }
+.asr-steps { margin: 0 0 .8rem; padding-left: 1.3rem; font-size: .86rem; line-height: 1.8; color: var(--fgColor-secondary, #666); }
+.asr-urlbox { display: flex; gap: .4rem; margin-bottom: 1rem; }
+.asr-urlbox input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: .35rem .6rem;
+  font-size: .78rem;
+  color: var(--fgColor-secondary, #666);
+  background: var(--bgColor-secondary, #f5f5f5);
+  border: 1px solid var(--borderColor-default, #e4e4e4);
+  border-radius: 8px;
+}
+.asr-modal-actions { display: flex; justify-content: flex-end; gap: .5rem; flex-wrap: wrap; }
+
+/* ---------- 手机端 ---------- */
+@media only screen and (max-width: 680px) {
+  .asr-grid { grid-template-columns: repeat(auto-fill, minmax(6.6rem, 1fr)); gap: .5rem; }
+  .asr-item { padding: .55rem .5rem; font-size: .85rem; min-height: 2.9rem; }
+  .asr-cc { display: none; }
+  .asr-flag { font-size: 1.05rem; }
+  .asr-h { font-size: 1rem; margin-top: 1.4rem; }
+  .asr-links { gap: .4rem; }
+  .asr-link { padding: .4rem .75rem; font-size: .8rem; }
+  .asr-modal { padding: .75rem; align-items: flex-end; }
+  .asr-modal-box { max-height: 82vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .asr-modal-actions .asr-btn, .asr-modal-actions .asr-btn-ghost { flex: 1 1 auto; }
+}
+@media only screen and (max-width: 360px) {
+  .asr-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  /* cc|storefrontId|中文名|英文名 */
+  var DATA = [
+  "AL|143575|阿尔巴尼亚|Albania",
+  "DZ|143563|阿尔及利亚|Algeria",
+  "AF|143610|阿富汗|Afghanistan",
+  "AR|143505|阿根廷|Argentina",
+  "AE|143481|阿拉伯联合酋长国|United Arab Emirates",
+  "OM|143562|阿曼|Oman",
+  "AZ|143568|阿塞拜疆|Azerbaijan",
+  "EG|143516|埃及|Egypt",
+  "IE|143449|爱尔兰|Ireland",
+  "EE|143518|爱沙尼亚|Estonia",
+  "AO|143564|安哥拉|Angola",
+  "AI|143538|安圭拉|Anguilla",
+  "AG|143540|安提瓜和巴布达|Antigua and Barbuda",
+  "AT|143445|奥地利|Austria",
+  "AU|143460|澳大利亚|Australia",
+  "BB|143541|巴巴多斯|Barbados",
+  "PG|143597|巴布亚新几内亚|Papua New Guinea",
+  "BS|143539|巴哈马|Bahamas",
+  "PK|143477|巴基斯坦|Pakistan",
+  "PY|143513|巴拉圭|Paraguay",
+  "BH|143559|巴林|Bahrain",
+  "PA|143485|巴拿马|Panama",
+  "BR|143503|巴西|Brazil",
+  "BY|143565|白俄罗斯|Belarus",
+  "BM|143542|百慕大|Bermuda",
+  "BG|143526|保加利亚|Bulgaria",
+  "MK|143530|北马其顿|North Macedonia",
+  "BJ|143576|贝宁|Benin",
+  "BE|143446|比利时|Belgium",
+  "IS|143558|冰岛|Iceland",
+  "PL|143478|波兰|Poland",
+  "BA|143612|波斯尼亚和黑塞哥维那|Bosnia and Herzegovina",
+  "BO|143556|玻利维亚|Bolivia",
+  "BZ|143555|伯利兹|Belize",
+  "BW|143525|博茨瓦纳|Botswana",
+  "BT|143577|不丹|Bhutan",
+  "BF|143578|布基纳法索|Burkina Faso",
+  "DK|143458|丹麦|Denmark",
+  "DE|143443|德国|Germany",
+  "DO|143508|多米尼加共和国|Dominican Republic",
+  "DM|143545|多米尼克|Dominica",
+  "RU|143469|俄罗斯|Russia",
+  "EC|143509|厄瓜多尔|Ecuador",
+  "FR|143442|法国|France",
+  "PH|143474|菲律宾|Philippines",
+  "FJ|143583|斐济|Fiji",
+  "FI|143447|芬兰|Finland",
+  "CV|143580|佛得角|Cape Verde",
+  "GM|143584|冈比亚|Gambia",
+  "CG|143582|刚果（布）|Republic of the Congo",
+  "CD|143613|刚果（金）|Democratic Republic of the Congo",
+  "CO|143501|哥伦比亚|Colombia",
+  "CR|143495|哥斯达黎加|Costa Rica",
+  "GD|143546|格林纳达|Grenada",
+  "GE||格鲁吉亚|Georgia",
+  "GY|143553|圭亚那|Guyana",
+  "KZ|143517|哈萨克斯坦|Kazakhstan",
+  "KR|143466|韩国|South Korea",
+  "NL|143452|荷兰|Netherlands",
+  "ME|143619|黑山|Montenegro",
+  "HN|143510|洪都拉斯|Honduras",
+  "KG|143586|吉尔吉斯斯坦|Kyrgyzstan",
+  "GW|143585|几内亚比绍|Guinea-Bissau",
+  "CA|143455|加拿大|Canada",
+  "GH|143573|加纳|Ghana",
+  "GA|143614|加蓬|Gabon",
+  "KH|143579|柬埔寨|Cambodia",
+  "CZ|143489|捷克|Czech Republic",
+  "ZW|143605|津巴布韦|Zimbabwe",
+  "CM|143574|喀麦隆|Cameroon",
+  "QA|143498|卡塔尔|Qatar",
+  "KY|143544|开曼群岛|Cayman Islands",
+  "XK|143624|科索沃|Kosovo",
+  "CI|143527|科特迪瓦|Ivory Coast",
+  "KW|143493|科威特|Kuwait",
+  "HR|143494|克罗地亚|Croatia",
+  "KE|143529|肯尼亚|Kenya",
+  "LV|143519|拉脱维亚|Latvia",
+  "LA|143587|老挝|Laos",
+  "LB|143497|黎巴嫩|Lebanon",
+  "LT|143520|立陶宛|Lithuania",
+  "LR|143588|利比里亚|Liberia",
+  "LY|143567|利比亚|Libya",
+  "LI|143522|列支敦士登|Liechtenstein",
+  "LU|143451|卢森堡|Luxembourg",
+  "RW|143621|卢旺达|Rwanda",
+  "RO|143487|罗马尼亚|Romania",
+  "MG|143531|马达加斯加|Madagascar",
+  "MV|143488|马尔代夫|Maldives",
+  "MT|143521|马耳他|Malta",
+  "MW|143589|马拉维|Malawi",
+  "MY|143473|马来西亚|Malaysia",
+  "ML|143532|马里|Mali",
+  "MU|143533|毛里求斯|Mauritius",
+  "MR|143590|毛里塔尼亚|Mauritania",
+  "US|143441|美国|United States",
+  "MN|143592|蒙古|Mongolia",
+  "MS|143547|蒙特塞拉特|Montserrat",
+  "BD|143490|孟加拉国|Bangladesh",
+  "PE|143507|秘鲁|Peru",
+  "FM|143591|密克罗尼西亚|Federated States of Micronesia",
+  "MM|143570|缅甸|Myanmar",
+  "MD|143523|摩尔多瓦|Moldova",
+  "MA|143620|摩洛哥|Morocco",
+  "MZ|143593|莫桑比克|Mozambique",
+  "MX|143468|墨西哥|Mexico",
+  "NA|143594|纳米比亚|Namibia",
+  "ZA|143472|南非|South Africa",
+  "NR|143606|瑙鲁|Nauru",
+  "NI|143512|尼加拉瓜|Nicaragua",
+  "NP|143484|尼泊尔|Nepal",
+  "NE|143534|尼日尔|Niger",
+  "NG|143561|尼日利亚|Nigeria",
+  "NO|143457|挪威|Norway",
+  "PW|143595|帕劳|Palau",
+  "PT|143453|葡萄牙|Portugal",
+  "JP|143462|日本|Japan",
+  "SE|143456|瑞典|Sweden",
+  "CH|143459|瑞士|Switzerland",
+  "SV|143506|萨尔瓦多|El Salvador",
+  "RS|143500|塞尔维亚|Serbia",
+  "SL|143600|塞拉利昂|Sierra Leone",
+  "SN|143535|塞内加尔|Senegal",
+  "CY|143557|塞浦路斯|Cyprus",
+  "SC|143599|塞舌尔|Seychelles",
+  "SA|143479|沙特阿拉伯|Saudi Arabia",
+  "ST|143598|圣多美和普林西比|Sao Tome and Principe",
+  "KN|143548|圣基茨和尼维斯|Saint Kitts and Nevis",
+  "LC|143549|圣卢西亚|Saint Lucia",
+  "VC|143550|圣文森特和格林纳丁斯|Saint Vincent and the Grenadines",
+  "LK|143486|斯里兰卡|Sri Lanka",
+  "SK|143496|斯洛伐克|Slovakia",
+  "SI|143499|斯洛文尼亚|Slovenia",
+  "SZ|143602|斯威士兰|Eswatini",
+  "SR|143554|苏里南|Suriname",
+  "SB|143601|所罗门群岛|Solomon Islands",
+  "TJ|143603|塔吉克斯坦|Tajikistan",
+  "TW|143470|台湾|Taiwan",
+  "TH|143475|泰国|Thailand",
+  "TZ|143572|坦桑尼亚|Tanzania",
+  "TO|143608|汤加|Tonga",
+  "TC|143552|特克斯和凯科斯群岛|Turks and Caicos",
+  "TT|143551|特立尼达和多巴哥|Trinidad and Tobago",
+  "TN|143536|突尼斯|Tunisia",
+  "TR|143480|土耳其|Turkey",
+  "TM|143604|土库曼斯坦|Turkmenistan",
+  "VU|143609|瓦努阿图|Vanuatu",
+  "GT|143504|危地马拉|Guatemala",
+  "VE|143502|委内瑞拉|Venezuela",
+  "BN|143560|文莱|Brunei",
+  "UG|143537|乌干达|Uganda",
+  "UA|143492|乌克兰|Ukraine",
+  "UY|143514|乌拉圭|Uruguay",
+  "UZ|143566|乌兹别克斯坦|Uzbekistan",
+  "ES|143454|西班牙|Spain",
+  "GR|143448|希腊|Greece",
+  "SG|143464|新加坡|Singapore",
+  "NZ|143461|新西兰|New Zealand",
+  "HU|143482|匈牙利|Hungary",
+  "JM|143511|牙买加|Jamaica",
+  "AM|143524|亚美尼亚|Armenia",
+  "YE|143571|也门|Yemen",
+  "IQ|143617|伊拉克|Iraq",
+  "IL|143491|以色列|Israel",
+  "IT|143450|意大利|Italy",
+  "IN|143467|印度|India",
+  "ID|143476|印度尼西亚|Indonesia",
+  "GB|143444|英国|United Kingdom",
+  "VG|143543|英属维尔京群岛|British Virgin Islands",
+  "JO|143528|约旦|Jordan",
+  "VN|143471|越南|Vietnam",
+  "ZM|143622|赞比亚|Zambia",
+  "TD|143581|乍得|Chad",
+  "CL|143483|智利|Chile",
+  "CN|143465|中国|China",
+  "MO|143515|中国澳门特别行政区|Macao",
+  "HK|143463|中国香港特别行政区|Hong Kong"
+  ];
+
+  var HOT = ["US", "JP", "HK", "TW", "SG", "KR", "GB", "CA", "AU", "TR", "AR", "NG", "IN", "MY", "DE", "CN"];
+  var SHORT = { HK: "香港", MO: "澳门", AE: "阿联酋", RU: "俄罗斯", GB: "英国" };
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  var list = DATA.map(function (raw) {
+    var p = raw.split("|");
+    var cc = p[0];
+    return { cc: cc, sf: p[1], zh: SHORT[cc] || p[2], full: p[2], en: p[3] };
+  });
+  var byCC = {};
+  list.forEach(function (c) { byCC[c.cc] = c; });
+
+  function flag(cc) {
+    return String.fromCodePoint.apply(String, cc.split("").map(function (ch) {
+      return 127397 + ch.charCodeAt(0);
+    }));
+  }
+
+  function urlFor(c) {
+    var u = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/resetAndRedirect?cc=" + c.cc.toLowerCase();
+    return c.sf ? u + "&dsf=" + c.sf : u;
+  }
+
+  /* ---------- Safari 检测 ---------- */
+  var ua = navigator.userAgent;
+  var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+    (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  var isMac = /Macintosh/.test(ua) && !isIOS;
+  var inAppWebview = /MicroMessenger|QQ\/|QQBrowser|AlipayClient|DingTalk|Weibo|baidu|BaiduBoxApp|UCBrowser|Quark|Line\/|FBAN|FBAV|FBIOS|Instagram|Snapchat|TikTok|BytedanceWebview|Twitter|Electron|; wv\)/i.test(ua);
+  var otherBrowser = /CriOS|FxiOS|EdgiOS|OPiOS|OPT\/|OPR\/|Chrome\/|Chromium\/|Firefox\/|Edg\//.test(ua);
+  var looksSafari = /Safari\//.test(ua) && /Version\/\d/.test(ua) && !inAppWebview && !otherBrowser;
+  /* WKWebView 的默认 UA 与 Safari 一致，靠 navigator.standalone 区分：只有 Mobile Safari 有这个属性 */
+  var isSafari = isIOS
+    ? (looksSafari && typeof navigator.standalone !== "undefined")
+    : looksSafari;
+  var canJump = (isIOS || isMac) && isSafari;
+
+  /* ---------- 顶部提示条 ---------- */
+  if (!canJump) {
+    var title = $("asr-banner-title");
+    var desc = $("asr-banner-desc");
+    if (!isIOS && !isMac) {
+      title.textContent = "请用 iPhone、iPad 或 Mac 打开本页面";
+      desc.textContent = "切换链接只能在 Apple 设备上唤起 App Store，当前设备用不了。";
+    } else if (inAppWebview) {
+      title.textContent = "请在 Safari 中打开本页面";
+      desc.textContent = "微信、QQ 等 App 内置浏览器无法唤起 App Store。点右上角「···」→「在 Safari 中打开」，或复制链接后粘贴到 Safari。";
+    } else {
+      title.textContent = "请在 Safari 中打开本页面";
+      desc.textContent = "当前浏览器无法唤起 App Store，请复制链接后在 Safari 中打开再点击。";
+    }
+    $("asr-banner").hidden = false;
+  }
+
+  /* ---------- 渲染 ---------- */
+  function card(c) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "asr-item";
+    b.setAttribute("data-cc", c.cc);
+    b.title = c.full + " · " + c.en;
+    b.innerHTML = '<span class="asr-flag" aria-hidden="true">' + flag(c.cc) + "</span>" +
+      '<span class="asr-name"></span>' +
+      '<span class="asr-cc">' + c.cc + "</span>";
+    b.querySelector(".asr-name").textContent = c.zh;
+    return b;
+  }
+
+  var hotBox = $("asr-hot");
+  HOT.forEach(function (cc) {
+    if (byCC[cc]) { hotBox.appendChild(card(byCC[cc])); }
+  });
+
+  var allBox = $("asr-all");
+  var emptyBox = $("asr-empty");
+  var countBox = $("asr-count");
+  var frag = document.createDocumentFragment();
+  list.forEach(function (c) { frag.appendChild(card(c)); });
+  allBox.appendChild(frag);
+  countBox.textContent = "共 " + list.length + " 个国家和地区";
+
+  /* ---------- 搜索 ---------- */
+  var q = $("asr-q");
+  var clearBtn = $("asr-clear");
+
+  function filter() {
+    var kw = q.value.trim().toLowerCase();
+    clearBtn.hidden = !kw;
+    var shown = 0;
+    var nodes = allBox.children;
+    for (var i = 0; i < nodes.length; i++) {
+      var c = byCC[nodes[i].getAttribute("data-cc")];
+      var hit = !kw ||
+        c.zh.indexOf(kw) > -1 ||
+        c.full.indexOf(kw) > -1 ||
+        c.en.toLowerCase().indexOf(kw) > -1 ||
+        c.cc.toLowerCase().indexOf(kw) > -1;
+      nodes[i].hidden = !hit;
+      if (hit) { shown++; }
+    }
+    emptyBox.hidden = shown > 0;
+    countBox.textContent = kw
+      ? "匹配到 " + shown + " 个（共 " + list.length + " 个）"
+      : "共 " + list.length + " 个国家和地区";
+  }
+
+  q.addEventListener("input", filter);
+  q.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); q.blur(); }
+  });
+  clearBtn.addEventListener("click", function () {
+    q.value = "";
+    filter();
+    q.focus();
+  });
+
+  /* ---------- 跳转 / 弹窗 ---------- */
+  var modal = $("asr-modal");
+  var pending = "";
+
+  function openModal(url, label) {
+    pending = url;
+    $("asr-modal-url").value = location.href;
+    $("asr-modal-desc").textContent = (!isIOS && !isMac)
+      ? "「" + label + "」的切换链接需要在 iPhone、iPad 或 Mac 的 Safari 中点击才能唤起 App Store。"
+      : "「" + label + "」的切换链接需要 Safari 才能唤起 App Store，按下面的步骤操作：";
+    var steps = $("asr-steps");
+    steps.innerHTML = "";
+    var items = inAppWebview
+      ? ["点击右上角「···」，选择「在 Safari 中打开」", "在 Safari 里回到本页面", "再次点击要切换的地区"]
+      : ["复制下面的本页链接", "在 Safari 中粘贴打开", "再次点击要切换的地区"];
+    items.forEach(function (t) {
+      var li = document.createElement("li");
+      li.textContent = t;
+      steps.appendChild(li);
+    });
+    modal.hidden = false;
+  }
+
+  function closeModal() { modal.hidden = true; }
+
+  function jump(url) {
+    var a = document.createElement("a");
+    a.href = url;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  function handle(url, label) {
+    if (canJump) { jump(url); } else { openModal(url, label); }
+  }
+
+  document.getElementById("asr").addEventListener("click", function (e) {
+    var item = e.target.closest ? e.target.closest(".asr-item, [data-asr-url]") : null;
+    if (!item) { return; }
+    if (item.hasAttribute("data-asr-url")) {
+      handle(item.getAttribute("data-asr-url"), item.textContent.trim());
+    } else {
+      var c = byCC[item.getAttribute("data-cc")];
+      if (c) { handle(urlFor(c), c.zh); }
+    }
+  });
+
+  $("asr-force").addEventListener("click", function () {
+    closeModal();
+    if (pending) { jump(pending); }
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-asr-close]"), function (el) {
+    el.addEventListener("click", closeModal);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.hidden) { closeModal(); }
+  });
+
+  /* ---------- 复制链接 ---------- */
+  function copyText(text, done) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  }
+
+  function fallback(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:absolute;left:-9999px;top:0";
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    try { document.execCommand("copy"); done(); } catch (err) { /* 用户手动复制 */ }
+    document.body.removeChild(ta);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-asr-copy]"), function (btn) {
+    btn.addEventListener("click", function () {
+      copyText(location.href, function () {
+        var old = btn.textContent;
+        btn.textContent = "已复制 ✓";
+        var tip = $("asr-copied");
+        if (tip) { tip.hidden = true; }
+        setTimeout(function () { btn.textContent = old; }, 1800);
+      });
+    });
+  });
+})();
+</script>
