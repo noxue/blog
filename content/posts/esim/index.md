@@ -25,11 +25,3 @@ lightgallery: true   # 图片点击放大
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/NPRW0H0dfm4?si=IBnICoYoLCPjX9HQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-## 国内视频
-
-{{< admonition type="tip" title="没有国外网络看不了 YouTube？" open=true >}}
-可以在微信 **视频号** 观看同款教程，扫下方二维码关注「不学网」即可。
-{{< /admonition >}}
-
-![不学网视频号二维码，微信扫码即可关注观看教程](1.jpeg "微信扫码关注「不学网」视频号")
-

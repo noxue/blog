@@ -569,7 +569,7 @@ bundle = false
   bio = "如果这篇文章对你有帮助，欢迎请我喝杯咖啡 ☕"
   link = ""
   # 打赏收款码(把二维码图片放到 static/images/ 下即可)
-  custom = '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:12px"><figure style="margin:0;text-align:center"><img src="/images/reward-wechat.png" alt="微信赞赏码" style="width:160px;height:160px;object-fit:contain"><figcaption>微信</figcaption></figure><figure style="margin:0;text-align:center"><img src="/images/reward-alipay.png" alt="支付宝收款码" style="width:160px;height:160px;object-fit:contain"><figcaption>支付宝</figcaption></figure></div>'
+  custom = ''
 
 # TypeIt config
 # TypeIt 配置
