@@ -1,0 +1,194 @@
+{{- /* 小工具通用样式，被 layouts/_shortcodes/tool-*.html 引用 */ -}}
+<style>
+.tk { margin: 1rem 0 0; font-size: .92rem; line-height: 1.7; }
+.tk *, .tk *::before, .tk *::after { box-sizing: border-box; }
+
+.tk-card {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--borderColor-default, #e4e4e4);
+  border-radius: 12px;
+  background: var(--bgColor-default, #fff);
+}
+.tk-card > :first-child { margin-top: 0; }
+.tk-card > :last-child { margin-bottom: 0; }
+
+.tk-h {
+  margin: 0 0 .8rem;
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--fgColor-default, #333);
+}
+.tk-row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.tk-row-tight { gap: .4rem; }
+.tk-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.tk-spacer { flex: 1 1 auto; }
+
+.tk-field { display: block; margin-bottom: .8rem; }
+.tk-field:last-child { margin-bottom: 0; }
+.tk-label {
+  display: block;
+  margin-bottom: .3rem;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--fgColor-secondary, #666);
+}
+.tk-hint { margin: .3rem 0 0; font-size: .76rem; color: var(--fgColor-secondary, #888); }
+
+.tk-input, .tk-textarea, .tk-select {
+  width: 100%;
+  padding: .5rem .7rem;
+  /* 16px：低于 16px 时 iOS Safari 聚焦会自动放大页面 */
+  font-size: 16px;
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--fgColor-default, #333);
+  background: var(--bgColor-default, #fff);
+  border: 1px solid var(--borderColor-default, #ddd);
+  border-radius: 8px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tk-select { background-image: none; padding-right: .7rem; }
+.tk-input:focus, .tk-textarea:focus, .tk-select:focus { border-color: var(--fgColor-link, #2d809a); }
+.tk-textarea {
+  min-height: 7rem;
+  font-family: var(--code-font-family, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 14px;
+  resize: vertical;
+}
+.tk-input-mono { font-family: var(--code-font-family, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace); }
+.tk-input-sm { width: auto; min-width: 5rem; }
+
+.tk-btn {
+  padding: .45rem 1rem;
+  font-size: .85rem;
+  font-family: inherit;
+  color: #fff;
+  background: var(--fgColor-link, #2d809a);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.tk-btn:active { transform: scale(.97); }
+.tk-btn[disabled] { opacity: .5; cursor: not-allowed; }
+.tk-btn.ghost {
+  color: var(--fgColor-default, #333);
+  background: var(--bgColor-secondary, #f0f0f0);
+  border-color: var(--borderColor-default, #ddd);
+}
+.tk-btn.sm { padding: .3rem .7rem; font-size: .78rem; }
+
+.tk-check {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .84rem;
+  color: var(--fgColor-default, #333);
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.tk-check input { width: 1rem; height: 1rem; margin: 0; accent-color: var(--fgColor-link, #2d809a); }
+
+.tk-range { width: 100%; accent-color: var(--fgColor-link, #2d809a); }
+
+.tk-seg { display: flex; flex-wrap: wrap; gap: .35rem; }
+.tk-seg button {
+  padding: .35rem .8rem;
+  font-size: .8rem;
+  font-family: inherit;
+  color: var(--fgColor-secondary, #666);
+  background: transparent;
+  border: 1px solid var(--borderColor-default, #ddd);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.tk-seg button.on {
+  color: #fff;
+  background: var(--fgColor-link, #2d809a);
+  border-color: var(--fgColor-link, #2d809a);
+}
+
+.tk-out {
+  padding: .7rem .8rem;
+  font-family: var(--code-font-family, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--fgColor-default, #333);
+  background: var(--bgColor-secondary, #f6f6f6);
+  border: 1px solid var(--borderColor-default, #eee);
+  border-radius: 8px;
+  overflow-x: auto;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  -webkit-user-select: all;
+  user-select: all;
+}
+.tk-out.big { font-size: 15px; letter-spacing: .02em; }
+.tk-out.empty { color: var(--fgColor-secondary, #999); -webkit-user-select: none; user-select: none; }
+
+.tk-kv { display: grid; grid-template-columns: 7.5rem 1fr; gap: .45rem .8rem; font-size: .86rem; }
+.tk-kv dt { color: var(--fgColor-secondary, #888); }
+.tk-kv dd {
+  margin: 0;
+  color: var(--fgColor-default, #333);
+  overflow-wrap: anywhere;
+  -webkit-user-select: all;
+  user-select: all;
+}
+
+.tk-badge {
+  display: inline-block;
+  padding: .1rem .5rem;
+  font-size: .74rem;
+  border-radius: 999px;
+  background: var(--bgColor-secondary, #eee);
+  color: var(--fgColor-secondary, #666);
+}
+.tk-badge.ok { background: rgba(103, 194, 58, .16); color: #529b2e; }
+.tk-badge.warn { background: rgba(230, 162, 60, .18); color: #b88230; }
+.tk-badge.bad { background: rgba(245, 108, 108, .16); color: #c45656; }
+
+.tk-tip {
+  padding: .7rem .85rem;
+  margin-bottom: 1rem;
+  font-size: .84rem;
+  line-height: 1.7;
+  border-radius: 10px;
+  border: 1px solid rgba(230, 162, 60, .45);
+  background: rgba(230, 162, 60, .12);
+  color: var(--fgColor-default, #333);
+}
+.tk-tip strong { font-weight: 700; }
+
+.tk-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2.2rem;
+  z-index: 320;
+  padding: .5rem 1rem;
+  font-size: .84rem;
+  color: #fff;
+  background: rgba(0, 0, 0, .82);
+  border-radius: 999px;
+  transform: translate(-50%, 1rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s, transform .2s;
+}
+.tk-toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+@media only screen and (max-width: 680px) {
+  .tk { font-size: .88rem; }
+  .tk-card { padding: .85rem; border-radius: 10px; }
+  .tk-grid2 { grid-template-columns: 1fr; }
+  .tk-kv { grid-template-columns: 5.6rem 1fr; font-size: .82rem; }
+  .tk-btn { padding: .5rem 1rem; }
+  .tk-row > .tk-btn { flex: 1 1 auto; }
+  .tk-out { font-size: 12.5px; }
+}
+</style>

@@ -1,5 +1,6 @@
 ---
 title: "App Store 换区跳转工具"
+linkTitle: "App Store 换区"
 subtitle: "一键唤起 App Store 切到指定国家 / 地区"
 description: "在 Safari 中点击即可唤起 App Store 切换到美区、日区、港区等 177 个国家和地区，支持关键词搜索。"
 date: 2026-08-10
@@ -7,6 +8,7 @@ draft: false
 author: "noxue"
 tags: ["App Store", "换区", "小工具", "iOS"]
 categories: ["小工具"]
+weight: 1
 math: false
 lightgallery: false
 toc: false

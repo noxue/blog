@@ -28,7 +28,7 @@
   identifier = "tools"
   pre = ""
   post = ""
-  name = "小工具"
+  name = "工具箱"
   url = "/tools/"
   title = ""
   weight = 4
